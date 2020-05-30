@@ -8,8 +8,8 @@ Contents -----------------------------------------------------------------------
 2. Environment
 3. Data
 4. Symbols
-5. Numbers
-6. Characters
+5. Functions
+6. Types
 7. Streams
 8. Objects
 9. The Uncommon Lisp Package
@@ -49,5 +49,17 @@ Uncommon Lisp supports ASCII or alternatively ISO 646-IRV which both specify
 128 possible characters.
 
 Environment --------------------------------------------------------------------
+The Environment contains all data created or required when source code is
+evaluated.
+
+Data ---------------------------------------------------------------------------
+Data is the information being manipulated by source code.
 
 Symbols ------------------------------------------------------------------------
+All data in the environment is located through the use of Symbols.
+
+The Uncommon Lisp Package ------------------------------------------------------
+
+(r {Standard Input}[stream designator])
+
+(e [symbol]) -
