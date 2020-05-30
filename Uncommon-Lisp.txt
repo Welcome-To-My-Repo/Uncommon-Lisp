@@ -1,0 +1,53 @@
+The Uncommon Lisp Language Specification  --------------------------------------
+June 2020
+(C)opyright Daniel (Robin) Smith
+
+Contents -----------------------------------------------------------------------
+0. Introduction
+1. Syntax
+2. Environment
+3. Data
+4. Symbols
+5. Numbers
+6. Characters
+7. Streams
+8. Objects
+9. The Uncommon Lisp Package
+
+Introduction -------------------------------------------------------------------
+Uncommon Lisp is a dialect of Lisp that can be considered an incrementation of
+ANSI Common Lisp much in the same way C++ is, at least in name, a positive
+incrementation of the C language.
+
+Uncommon Lisp has only a few design principals:
+1. Be like ANSI Common Lisp.
+2. Be small, within reason.
+3. Be future-proof.
+4. Be entirely self-contained.
+
+These four deign goals are a direct result of the current state of ANSI Common
+Lisp and the Lisp language family as a whole. ANSI Common Lisp is gigantic and
+cluttered. It is the result of a herculean effort over many years to curate and
+consolidate the best parts of multiple dialects of Lisp into a working
+programming language. On the other hand, Scheme is very, very small. The
+official description of the language is only a few pages.
+
+Common Lisp tends to be overwhelming and none of its implementations are truly
+compliant because of the myriad complexities that occur when its components
+interact. Scheme is almost too small to be useful. Most of its use is from
+language designers looking to prototype another language through Scheme, rather
+than using it directly towards some design goal. Clojure is a third popular
+dialect of lisp, but calling it one is a stretch as it is really a conjoined
+twin of Java and relies on the Java environment to run.
+
+What is needed is a true general purpose language that can exist at a happy
+medium between machine code and high level abstraction, with the ability to
+move in between the two extremes. This is what Uncommon Lisp offers.
+
+Syntax -------------------------------------------------------------------------
+Uncommon Lisp supports ASCII or alternatively ISO 646-IRV which both specify
+128 possible characters.
+
+Environment --------------------------------------------------------------------
+
+Symbols ------------------------------------------------------------------------
