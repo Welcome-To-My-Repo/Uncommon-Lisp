@@ -26,11 +26,10 @@ Uncommon Lisp has only a few design principals:
 4. Be entirely self-contained.
 
 These four deign principals are a direct result of the current state of ANSI
-Common
-Lisp and the Lisp language family as a whole. ANSI Common Lisp is gigantic and
-cluttered. It is the result of a herculean effort over many years to curate and
-consolidate the best parts of multiple dialects of Lisp into a working
-programming language. On the other hand, Scheme is very, very small. The
+Common Lisp and the Lisp language family as a whole. ANSI Common Lisp is 
+gigantic and cluttered. It is the result of a herculean effort over many years 
+to curate and consolidate the best parts of multiple dialects of Lisp into a 
+working programming language. On the other hand, Scheme is very, very small. The
 official description of the language is only a few pages.
 
 Common Lisp tends to be overwhelming and none of its implementations are truly
