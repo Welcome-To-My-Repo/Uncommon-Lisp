@@ -7,4 +7,5 @@ there is only one (set), no setq or setf
 there are only four data types, number, character, symbol, function
 
 data types are made with the object system.
-the only basic types that exist at the lowest roots of the environment are
+the only basic types that exist at the lowest roots of the environment are 
+arithmetic operations, list operations, lambdas and objects. 
