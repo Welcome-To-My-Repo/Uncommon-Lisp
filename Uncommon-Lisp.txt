@@ -9,33 +9,31 @@ incrementation of the C language.
 
 Uncommon Lisp has only a few design principals:
 1. Prioritize emergent syntax.
-2. Be compact
-3. Be future-proof
+2. Be reasonably compact
+3. Allow future-proofing
 
+Emergent syntax means that there should be many ways to implement an algorithm,
+using the same base set of operations. Take mathematical operations for example.
+There are five basic symbols that can be combined in any order to achieve a
+specific algorithm. It's easier to add three addends using two additions than to
+invent a new symbol specifically for adding three numbers. In that same sense, 
+Uncommon Lisp shall not implement an abstract operation as a component of the 
+language unless it cannot be represented with already existing syntax. This 
+avoids the redundancy that often occurs in Common Lisp syntax.
 
+Parallel to the first principal, Uncommon Lisp will be a small language. This is
+not the same sense of small as Scheme, where any usefulness to the language must
+be hand implemented by the users. This is why the term "compact" is used instead
+of "small". Scheme is small and it lacks so many basic features that it's 
+impossible to use except when implementing a higer level, more feature-full
+language. Uncommon Lisp is full-featured without having an overwhelming amount 
+of syntax.
 
-Syntax -------------------------------------------------------------------------
-Uncommon Lisp supports ASCII or alternatively ISO 646-IRV which both specify
-128 possible characters.
-
-Environment --------------------------------------------------------------------
-The Environment contains all data created or required when source code is
-evaluated. The environment in Uncommon Lisp also contains a reserved symbol
-that is used to represent the entire environment itself.
-
-Data ---------------------------------------------------------------------------
-Data is the information being manipulated by source code.
-
-Symbols ------------------------------------------------------------------------
-All data in the environment is located through the use of Symbols. Symbols them
-selves can be assigned to other Symbols.
-
-The Uncommon Lisp Package ------------------------------------------------------
-The Uncommon Lisp package contains all functions defined in this specification.
-The functions are notated as the function name in lower case within parentheses.
-The arguments to each functiom are represented in braces and default values to
-each function are represented in square brackets.
-
-(r {Standard Input}[stream designator])
-
-(e [symbol])
+The third principal is likely the most important. Lisp as a language is not
+future proof. It was designed when general purpose hardware wasn't a concept, 
+and died when the PC was popularized. Modern Lisp languages have no access to 
+the underlying system because they were left behind when C became the system
+language of choice. Uncommon Lisp implements two measures to avoid obsoletion,
+it implements a means of interacting with native system libraries, and it
+allows extension to implement access to any future manner of resource without
+breaking the syntax.
