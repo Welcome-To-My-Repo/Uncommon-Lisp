@@ -1,0 +1,16 @@
+functions are a data type
+symbols are a data type
+
+all functions are lambdas. they become persistent with a symbol
+
+there is only one (set), no setq or setf
+there are only four data types, number, character, symbol, function
+
+data types are made with the object system.
+the only basic types that exist at the lowest roots of the environment are 
+arithmetic operations, list operations, lambdas and objects. 
+<<<<<<< HEAD
+
+=======
+the most basic data types are integers and ASCII characters
+>>>>>>> a7d03ad71e53b65c6d19857a2343a6737df18763
