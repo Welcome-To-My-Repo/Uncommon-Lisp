@@ -15,3 +15,20 @@ basic operations are five math operations: add/subtract, multiply/divide,
 modulo.
 
 basic data types are integer, character, list, symbol, function
+
+
+--------------------------------------------------------------------------------
+
+
+based on criticism of Common Lisp, here's what Uncommon Lisp changes
+
+one environment for everything, no more compilation environment/read environment/other environment.
+
+Uncommon Lisp doesn't have "images". There's the Incremental Compiler, and 
+there's compiled applications. There's no purpose to an image anymore when you
+can distribute a native executable which is at least one order of magnitude more
+portable. You don't see the JVM using "images".
+
+The CLOS sits on top of an arbitrary type system that it can undermine and 
+supercede, eliminating any reason for there to be a parallel type system to the
+CLOS in the first place.

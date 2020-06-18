@@ -1,0 +1,35 @@
+Unorganized Laundry List of Common Lisp's Bad Points
+
+	Its standard was from before the internet was invented. 
+Everyone else caught up except for Common Lisp.
+
+	Symbol Property lists are useless and redundant when there are actual
+list data structures in the specification that can manage the same organizatino
+much better and in a much more accessible way.
+
+	There's a bunch of stuff in the standard that don't have any place in the base language. 
+Take hashes for example. 
+Hashes are common knowledge so why does their handling have to be standardized? Also why are there upwards of five kinds of vectors by default? 
+Normal language use doesn't require there to be such a cluttered variance of (mostly redundant) types.
+
+	The myriad ways of representing a number aren't necessary. 
+Everyone else is convenienced enough when decimal and hexadecimal are supported.
+Even rational notation is a stretch.
+
+	Pick multiple return values, or data structures. 
+They're mutually redundant when they exist in the same language.
+
+	The type system has somehow managed to exist in parallel to the CLOS.
+Probably because they were added at different times.
+But now they clash horribly. 
+Types in the type system exist outside the reach of the CLOS and aren't implemented by it.
+The CLOS has the magical ability to undermine and overrule the type system.
+The CLOS can make sub-types or supertypes and the standard type system can effectively be ignored.
+Sauron didn't make one ring to rule them all and a second ring to bind them.
+
+The reader is a mess.
+Any character can be a macro character, but characters that are read in can also represent different characters.
+Characters that represent different characters can have macros. 
+It's a mess and none of the implementations do it right.
+The readtable is absolute wrong way to do things as every character that's read
+in has to go through a series of comparisons first.
