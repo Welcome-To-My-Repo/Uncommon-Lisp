@@ -51,3 +51,28 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 "cdr" refers to the last item of the list.
 "cpr" refers to the entire list as a data object
 "ctr" refers to a specific item in the list
+
+		no dotted pairs. dots don't improve readability and pairs can be made without dots.
+
+		symbols in the language standard will be only 4 characters long. this is fine because the permutations when using 0-Z and "-" are over 25 million.
+
+		UcL doesn't rely on a REPL and can be compiled from a source file.
+
+		abstract conceptual hierarchy of UcL:
+
+		core syntax, t - all data
+		
+		|
+		V
+		
+		atomic types - numbers, character strings, functions
+
+		|
+		V
+
+		objects - abstract types, type/object system
+
+		|
+		V
+
+		macros - syntax as an object

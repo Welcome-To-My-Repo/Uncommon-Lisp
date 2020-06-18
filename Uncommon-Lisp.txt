@@ -51,6 +51,11 @@ language are described in Lambda Calculus. If they cannot be properly described
 in Lamba Calculus, they are described in plain english as a high level 
 algorithm.
 
+Syntax -------------------------------------------------------------------------
+
+UcL syntax consists of the standard ASCII table. All visible characters, 
+including whitespace, have syntactical meaning.
+
 Data ---------------------------------------------------------------------------
 
 In UcL, the fundamental data types are a number and a character. From these 
@@ -80,15 +85,31 @@ radix 256 is unique from the other three bases. Each place value requires two
 characters, 0-F and is separated by a comma unless already separated by a radix
 point.
 
+Decimal notation without a sign prefix is assumed to represent a positive
+number.
+
 Below are some examples of decimal notation in UcL.
 
 -7
 4.5
+10010
 +4FC
 -7F,5F.3A,1D
 
 Scientific Notation ------------------------------------------------------------
 
+In UcL, scientific notation is represented by an optional sign, followed by a
+numerical place, followed by a radix point, followed by a number of numerical 
+places, followed by an exponent symbol, "^", followed by an optional sign 
+prefix, followed by a number of numerical places. The places after the exponent
+symbol represent a power of the base number of the numerical base of the first
+number.
 
+Below are some examples of Scientific Notation in UcL.
+
++3.05^4
+-100101^11101
+FF^-A4
+74,FF^1A,04
 
 Objects ------------------------------------------------------------------------
