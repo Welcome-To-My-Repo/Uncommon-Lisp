@@ -26,4 +26,17 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 	list structures are the main fundamental data type because they can represent most stuff very well.
 	
 	introduce more syntax like "let" that allows for granularity with object lifespan.
-	
+
+	capabilities of complete syntax should mirror abilities of POSIX C library. A funky blasphemous concept, but on the other hand, POSIX C represents full access to the system, so a language would need either syntax or a library to mirror all of that.
+
+	loop syntax gets expanded and refined and fancy sub-syntax is gone.
+
+	the language is described as a series of algorithms or in psudo assembly. Uncommon Lisp could be implemented as a C library who knows. You can describe UL with UL, but lets not do that.
+
+	stuff like "readtable" and "printtable" are consolidated and the internal representation of information is made clear to the user.
+
+	"cdr" and "car" are expanded to other abstractions of list contents.
+
+	lambdas are just another base lisp type. lambdas can be bound to symbols.
+
+	refine syntax for describing data (numbers, characters, strings, etc...) to be more concise and definite. No more "possible numbers". context bounds are clearly defined.
