@@ -41,17 +41,6 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 
 	refine syntax for describing data (numbers, characters, strings, etc...) to be more concise and definite. No more "possible numbers". context bounds are clearly defined.
 
-	Alongside "car" and "cdr", "cpr" and "ctr" are reintroduced. Originally they stood for 
-	"Contents of the Address part of the Register"
-	"Contents of the Decrement part of the Register"
-	"Contents of the Prefix part of the Register"
-	"Contents of the Tag part of the Register"
-
-"car" refers to the first item of a pair.
-"cdr" refers to the last item of a pair.
-"cpr" refers to the entire tree structure as a single data object
-"ctr" refers to a specific position 
-
 	no dotted pairs. dots don't improve readability and pairs can be made without dots.
 
 	symbols in the language standard will be only 4 characters long. this is fine because the permutations when using 0-Z and "-" are over 25 million.
@@ -62,7 +51,7 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 	Syntactical:
 	1	Core Syntax 
 	2	Macros
-	3	Compound elements
+	3	meta syntax
 
 	Data:
 	1	t (information exists in a place) 
@@ -70,20 +59,3 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 	3	object type (the manner in which data is handled)
 	4	object system (create new data handling methods)
 	5	meta object (data handling method as an object type)
-
-		core syntax, t - all data
-		
-		|
-		V
-		
-		atomic types - numbers, character strings, functions
-
-		|
-		V
-
-		objects - abstract types, type/object system
-
-		|
-		V
-
-		macros - syntax as an object
