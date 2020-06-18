@@ -40,3 +40,14 @@ A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do bett
 	lambdas are just another base lisp type. lambdas can be bound to symbols.
 
 	refine syntax for describing data (numbers, characters, strings, etc...) to be more concise and definite. No more "possible numbers". context bounds are clearly defined.
+
+	Alongside "car" and "cdr", "cpr" and "ctr" are reintroduced. Originally they stood for 
+	"Contents of the Address part of the Register"
+	"Contents of the Decrement part of the Register"
+	"Contents of the Prefix part of the Register"
+	"Contents of the Tag part of the Register"
+
+"car" refers to the first item of the list.
+"cdr" refers to the last item of the list.
+"cpr" refers to the entire list as a data object
+"ctr" refers to a specific item in the list

@@ -3,9 +3,13 @@ June 2020
 (C)opyright Daniel (Robin) Smith
 
 Introduction -------------------------------------------------------------------
-Uncommon Lisp is a dialect of Lisp that can be considered an incrementation of
-ANSI Common Lisp much in the same way C++ is, at least in name, a positive
-incrementation of the C language.
+
+Uncommon Lisp or "UcL" is an attempt to correct all the faults that have been 
+found and all the ills that have grown against ANSI Common Lisp since the 90's. 
+There are a lot, most of them are resolved. Uncommon Lisp is meant to be a 
+middle ground to Lisp, between the barren Scheme and the bloated Common Lisp. 
+
+Uncommon Lisp is objectively the best lisp. 
 
 Uncommon Lisp has only a few design principals:
 1. Prioritize emergent syntax.
@@ -37,3 +41,54 @@ language of choice. Uncommon Lisp implements two measures to avoid obsoletion,
 it implements a means of interacting with native system libraries, and it
 allows extension to implement access to any future manner of resource without
 breaking the syntax.
+
+How to Use This Document -------------------------------------------------------
+
+This document outlines the requirements for the Uncommon Lisp language. These 
+requirements can be described using UcL syntax, but they are not in this 
+document. Because UcL is not intended to be bootstrapped, the features of this
+language are described in Lambda Calculus. If they cannot be properly described
+in Lamba Calculus, they are described in plain english as a high level 
+algorithm.
+
+Data ---------------------------------------------------------------------------
+
+In UcL, the fundamental data types are a number and a character. From these 
+types, complex types can be designed using the Uncommon Object System.
+
+Numbers ------------------------------------------------------------------------
+
+Numbers can be any rational value. They can be described using decimal or 
+scientific notation. UcL supports bases 2, 10, 16 and 256.
+
+Decimal Notation ---------------------------------------------------------------
+
+In UcL, decimal notation is represented by a number of numeric places followed 
+by an optional radix point, ".", followed by an optional number of numeric
+places. Each numeric place value is represented by numerals 0-9 for bases 2 and
+10 and 0-F for bases 16 and 256. An optional sign prefix, "+" or "-", can be 
+added in front of a decimal number.
+
+In base two, only ones and zeros are accepted.
+
+In a base 10 number, only 0-9 is accepted. 
+
+In a hexadecimal number, only 0-F is accepted. 
+
+In a base 256 number, only 0-F are accepted. Notation of each place value in 
+radix 256 is unique from the other three bases. Each place value requires two
+characters, 0-F and is separated by a comma unless already separated by a radix
+point.
+
+Below are some examples of decimal notation in UcL.
+
+-7
+4.5
++4FC
+-7F,5F.3A,1D
+
+Scientific Notation ------------------------------------------------------------
+
+
+
+Objects ------------------------------------------------------------------------
