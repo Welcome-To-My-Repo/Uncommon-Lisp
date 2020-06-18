@@ -1,0 +1,33 @@
+A Stream of Conciousness Laundry List of Common Lisp's Good Points
+
+	"Places", the concept that all syntax is data and data can be syntax is an interesting idea. It should be easy to implement, just not in the way that ANSI describes it.
+
+	The CLOS. The object system is very powerful and is probably the best type system ever. It's ability to dynamically re-structure declared object when the type is re-defined is very useful for incremental compilation.
+
+	Incremental Compilation saves an abundance of time.
+
+	The macro concept is very clean. There is a clear separation between syntax and macros. Syntax represents a manipulation of information, Macros represent a manipulation of syntax. Very subtle, very powerful, very extensible.
+
+	format is nice. It's similar to C's printf, but with a different control syntax. Still much easier than C++'s I/O objects and just as powerful.
+
+	the ability to add documentation to a function or object is unique and much too useful for how unique it is to Lisp.
+
+	Streams are a nice concept and really need to be extended since there's so much stream based data out there and standard I/O isn't the only stuff that needs formatting.
+
+	list structures are very flexible in how they can contain and represent data and are underused in the syntax.
+
+	no static typing is an interesting paradigm and changes how you think about creating a program or library for public use.
+
+	being able to load compiled code is a revolutionary concept and it's a shame that implementations haven't taken advantage of the lack of definition in the standard. for example, nothing's stopping an implementation from compiling code into a native shared object that can be used anywhere, but nobody has done that.
+
+	The flexibility of dynamically switching between functional and imperative behavior is very handy. There's an interesting sense of security that you get from having to manually declare a scope where imperative programming is used. There should be more ability afforded to programmers to declare paradigms for a certain scope. It removes some of the mystical ether-like quality of the language.
+
+	The function "let" is a very direct and secure way of defining the lifespan of objects. It makes you feel safe. There should be more of that feeling.
+
+	"car" and "cdr" are useful abstractions of the contents of lists. Maybe there's more ways to expand that type of thing.
+
+	lambdas are an interesting concept. They illustrate the idea of "places" very well in the fact that the "lambda" function evaluates to a function as a piece of data that can be optionally invoked as a function.
+
+	the "quote" function is a cool meta thing that conceptually goes alongside the "lambda" function in the sense that they both deal with converting syntax to data and back.
+
+	the expressiveness that the syntax allows programmers when declaring data (numbers, strings, ...) is the most flexible in existence.

@@ -1,35 +1,89 @@
 Unorganized Laundry List of Common Lisp's Bad Points
 
-	Its standard was from before the internet was invented. 
-Everyone else caught up except for Common Lisp.
+	Its standard was from before the internet was invented. Everyone else caught up except for Common Lisp.
 
-	Symbol Property lists are useless and redundant when there are actual
-list data structures in the specification that can manage the same organizatino
-much better and in a much more accessible way.
+	Symbol Property lists are useless and redundant when there are actual list data structures in the specification that can manage the same organizatino much better and in a much more accessible way.
 
-	There's a bunch of stuff in the standard that don't have any place in the base language. 
-Take hashes for example. 
-Hashes are common knowledge so why does their handling have to be standardized? Also why are there upwards of five kinds of vectors by default? 
-Normal language use doesn't require there to be such a cluttered variance of (mostly redundant) types.
+	There's a bunch of stuff in the standard that don't have any place in the base language. Take hashes for example. Hashes are common knowledge so why does their handling have to be standardized? Also why are there upwards of five kinds of vectors by default? Normal language use doesn't require there to be such a cluttered variance of (mostly redundant) types.
 
-	The myriad ways of representing a number aren't necessary. 
-Everyone else is convenienced enough when decimal and hexadecimal are supported.
-Even rational notation is a stretch.
+	The myriad ways of representing a number aren't necessary. Everyone else is convenienced enough when decimal and hexadecimal are supported. Even rational notation is a stretch.
 
-	Pick multiple return values, or data structures. 
-They're mutually redundant when they exist in the same language.
+	Pick multiple return values, or data structures. They're mutually redundant when they exist in the same language.
 
-	The type system has somehow managed to exist in parallel to the CLOS.
-Probably because they were added at different times.
-But now they clash horribly. 
-Types in the type system exist outside the reach of the CLOS and aren't implemented by it.
-The CLOS has the magical ability to undermine and overrule the type system.
-The CLOS can make sub-types or supertypes and the standard type system can effectively be ignored.
-Sauron didn't make one ring to rule them all and a second ring to bind them.
+	The type system has somehow managed to exist in parallel to the CLOS. Probably because they were added at different times. But now they clash horribly. Types in the type system exist outside the reach of the CLOS and aren't implemented by it. The CLOS has the magical ability to undermine and overrule the type system. The CLOS can make sub-types or supertypes and the standard type system can effectively be ignored. Sauron didn't make one ring to rule them all and a second ring to bind them.
 
-The reader is a mess.
-Any character can be a macro character, but characters that are read in can also represent different characters.
-Characters that represent different characters can have macros. 
-It's a mess and none of the implementations do it right.
-The readtable is absolute wrong way to do things as every character that's read
-in has to go through a series of comparisons first.
+	The reader is a mess. Any character can be a macro character, but characters that are read in can also represent different characters. Characters that represent different characters can have macros. It's a mess and none of the implementations do it right. The readtable is absolute wrong way to do things as every character that's readin has to go through a series of comparisons first.
+
+	Data representation for input and output are separate. How things exist inside the "environment" are always ambiguous unless you keep the initial states.
+
+	The infinitely recursive self description is weird.  Lisp fans have a fetish for implementing Lisp in itself which is cruel to do to implementors.  Lisp fans also have a disgusting fetish for bootstrapping.  Most Common Lisp implementations include only the C code that they absolutely have to and the resulting project is an unintelligible mess because nobody can tell what's happening in C or Lisp.  Also, the source documentation for implementations is atrocious considering how lisp programmers change the syntax to fit the application.  This means the pages of Lisp code without explanation are indecipherable because they aren't even coded in regular Common Lisp syntax.
+
+	The names in Common Lisp are all over the place depending on which previous Lisp they were derived from and what decade they were added into Common Lisp. 
+
+	car and cdr are pretty useless accessors. They were only kept in the syntax for posterity and have been supplanted by all the other redundant list accessors that nobody ever uses.
+
+	compiler macros are the most crackpot idea ever. There is no point to supplying the compiler with a better version of a function in the code that it may choose to use when you can just use the better syntax in the source code. If you can write better code, write better code. There is no point in telling the compiler to supplant your source code with more syntax that you've written yourself. That's not the same as optimization.
+
+	Common Lisp is a mess, it has no clearly defined practice for imperative and functional programming. When your using functional programming, there's no way to model data flow. Imperative programming is neutered because there's no way to modify a state without applying a function.
+
+	Common Lisp talks about this mind blowing concept called a "place" which is summed up by saying "everything can be data and data can be syntax". But then they leave this up to implementations to define. This is actually a downward move from Lambda calculus where a variable can represent anything.
+
+	978 standard symbols is too many. nobody will every remember 978 things and the necessary ones to memorize will get hidden in between all the junk. This is why every other language has a standard set of libraries. The syntax is concise and memorable, and additional functionality is built upon the core language. It's not necessary to memorize every method in the IOS class in order to use C++ even though it gets used for I/O.
+
+	The Lisp community loves Lisp to death, so much so that they are unable to criticize it. This problem is so extensive that the common method for developing Lisp applications is STILL Richard Stallman's very outmoded EMACS + REPL setup. Windowing systems are so ubiquitous for a reason.
+
+	Common Lisp's documentation is horrible. Everyone else has better documentation so therefore, they are more commonly used solely due to accessibility.
+
+	No networking. 
+
+	Streams in Common Lisp are a great concept and are only used for standard input and output and file streams. Considering the kind of data flowing around nowadays, CL Streams are comically underutilized in the language.
+
+	Packages are a good concept that is not used well and how the rest of the language interacts with them is strangely glitchy for a standard from ANSI.
+
+	Common Lisp is being beat out by Python right now. Python is clearly a bad impression of CL, but it's designed so reliably that it is objectively a better language. It also doesn't help Lisp that part of Python's design goals was readibility and ease of use.
+
+	Code libraries are lacking
+
+	build environments don't work and are poorly designed
+
+	dependancy management is unreliable
+
+	no standard development methods
+
+	no reliable access to system resources
+
+	major imcompatibility issues between implementations
+
+	no standard libraries, mostly due to the core language spreading itself over every possible context and use with its type system.
+
+	poor accessibility. This goes alongside the lack of a good IDE, but also includes a sever lack of quality documentation of the language. This is largely due to that fact that the core language is so large a ground to cover and most of it doesn't affect normal useage.
+
+	Any redefinition to an object changes all declared object's structure. This is like a trying to fire a gun that creates dynamite-like explosions. It's very hard to manage with human levels of effort. Imagine if you could re-define the C++ String class in the middle of an application. It would cause more chaos than good.
+
+	In Section 5.1.1 of the ANSI document, the "setf" function is demonstrated being superceded by several specialized functions that perform its exact role in fewer typed characters. If setf is more ineffecient, why implement it in the first place? This is another fault of the gargantuan standard type system where each type and sub-type has its own accessors that supplant generic accessors for no good reason.
+
+	The function "setf" is described using Common Lisp as a macro. Why is it not a generic function? 
+
+	Places are handled incorrectly in the ANSI document. First, "place" is defined as not defined. Then the document proceeds to tell you all the things that are "places" without explaining how that affects them because the literal concept of a "place" is left "implementation dependent".
+
+	The ANSI standard is left "implementation dependent" in such a way that every implementation is mutually incompatible. So much for a standard.
+
+	"go" and "tagbody" are horrible. Considering how high level and all-encompassing Common Lisp is, I'm baffled about why it needs assembly-style jump syntax.
+
+	Common Lisps endless self description is a mess. Most languages are self descriptive (go look at a dictionary), however, there is a core set of language that is used descriptively to define further concepts. Common Lisp does not do this. It defines the entire core language, using the core language. That's equivalent to a dictionary entry for "the" comprising of simply "the".
+
+	Control Flow is a mess because Common Lisp tries to be "funct-perative". This results in "progn" and "block" pretending to be imparative simply by performing functional operations in serial. Another oddity is that "return-from" works with "block", but not with "progn" and the only thing that makes "block" different from "progn" is that "return-from" doesn't work in "progn". Say that 5 times fast.
+
+	Tagbody completely breaks the syntax for no good reason. It can be easily implemented using parentheses just like the rest of the language. Was ANSI burnt out, or did they just not notice?
+
+	Every type of lambda list that is defined in section three of the ANSI spec is documented with a different format. They're all lambdas. A common structure should have been described and then there should be a list of permutations following the structure. This really has nothing to do with the language itself, it's just hard to understand what the language is when ANSI can't figure out how to describe it properly.
+
+	lambda list arguments can be in an arbitrary order, the problem is that flies in the face of the S-expression that is so all-important. Now there have to be special "boa" lists to go back and optionally enforce s-expression format.
+
+	trying to get at the documentation is very hard considering that the way to create documentation is very strict.
+
+	multiple layers of redundant syntax and systems for controlling imperative-ness and funtional-ness which only superficially work.
+
+	multiple variations in syntax for quoting various structures that all achive the same result of just using the "quote" function.
+
+	multiple avenues to display information about objects when usually the information would need to be seen all together to be helpful

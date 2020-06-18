@@ -1,0 +1,29 @@
+A Stream of Conciousness Laundry List of stuff that Uncommon Lisp should do better than Common Lisp.
+
+	UL has a small core syntax so that package locks aren't needed. Like parentheses, this syntax will be pervasive across the environment. objects that are defined above the core syntax can be undone and remade.
+
+	UL has a small set of core data types. Defining how these are processed creates the "system class" abstraction level that exists in Common Lisp. The meaning of an "integer" can be dynamically changed in the middle of execution.
+
+	All objects are created using the object system. There are no pre-defined system classes that exist elsewhere in the ether. In fact, the type system is the object system and the two terms describe the same abstract system.
+
+	The fundamental symbol type is defined by the object system.
+	
+	the "format" function stays the same, it's too damn good to change.
+
+	imperative and functional syntax are clearly separated, with definite control structures for each pardigm.
+
+	documentation strings stay as they are, they are made by angels.
+
+	accessing documentation strings, definitions, and other information is done through a single function. Less syntax to remember, more accessibility, more verbose, more.
+
+	no static typing at all. no constants. stuff can just be initialized without a means to write data to it.
+
+
+	The loop concept is good, implement it better than CL.
+
+	Streams can access anything that supports buffered I/O. There's lots of stuff besides files that do that.
+
+	list structures are the main fundamental data type because they can represent most stuff very well.
+	
+	introduce more syntax like "let" that allows for granularity with object lifespan.
+	
