@@ -1,0 +1,85 @@
+How Uncommon Lisp is Different
+(C)opyright 2020, Daniel (Robin) Smith
+
+The Current State of Lisp ------------------------------------------------------
+
+The main focus here are issues with Common Lisp. Although Scheme and Clojure are
+popular, Scheme is too small to be a useful language. It's mostly used by hippy
+dippy implementors and recursion fetishists. And Clojure is just a more
+convoluted way to create a Java application. Common Lisp ia arguably the truest
+Lisp as it's a direct descendant of Lisp Machine Lisp while Scheme was a radical
+fork of the language especially in the 70's.
+
+Common Lisp is an amalgamation of everyone's favourite leftovers from the AI
+Boom and Lisp Machines. It was created while Lisp Machines still had a market 
+and by the time it was standardized, the computing world had moved on to 
+different things. It has a lot of good points, but they're all the same as the
+original Lisp's good points while Common Lisp struggles with considerably more
+bloat. Now comes a list of all the things obstensibly "bad" with Lisp.
+
+The ANSI Common Lisp Standard does not define a language so much as it describes
+how a compiler might interpret a specific language.
+
+The ANSI Common Lisp Standard describes Common Lisp in Common Lisp. This is the
+equivalent of a dictionary entry for the word "the" containing only the word 
+"the". Self description is only useful if there is a core group of terms defined
+externally. Lambda Calculus can recursively describe itself because it's syntax
+is defined in classic mathmatical terms.
+
+The ANSI Standard was last released in the 90's. Thirty years is a long time
+in between updates to the standard. The language is only kept relevant because 
+of the stubborness of it's proponents, otherwise it would have been left for
+dead with Arc.
+
+Reflective capsbilities are surprisingly poorly implemented.
+
+There is an Object System and a set of Standard Classes which are mutually
+exclusive and fight for dominance over the type system.
+
+The language is improperly used when implementing itself. i.e. "setf" is 
+described as a macro when it would be a generic lambda.
+
+Any character can be a macro character, but characters that are read in can also
+represent different characters. Characters that represent different characters 
+can have macros. But macro characters cannot be represented by other characters.
+
+The reader and printer use disjoint systems so internal representation of data
+is always ambiguous. This flexibility can be achieved in a more definite manner.
+
+When Common Lisp was invented, there were a static number of Lisp Machine models
+and Common Lisp only needed to work on those architectures. The language as
+described is not suitable for being run in an operating system. As a
+consequence, modern Lisp has no reliable access to the underlying system.
+
+Symbol property lists are a poor implementation of data structures that already
+exist in the language and aren't necessary. Even in pure mathematics, 
+calculations of F(x) are not dependant on the symbolic qualities of "x", but 
+the nature of the information it represents. Symbol properties are probably
+a major breach of some computational theorem.
+
+There is no concept of a core syntax. Everything exists in the same level of
+abstraction.
+
+The Standard Classes have been ruthelessly expanded to include sub-par 
+implementations of types for every conceivable use case.
+
+Naming in standard packages is terrible. There's fifty years worth of 
+conventions jumbled amongst each other with the result that the features worth
+committing to memory aren't able to be.
+
+The language is left "implementation dependent" in such a way that every 
+implementation is mutually exclusive.
+
+Build environments and dependency management are weak.
+
+There are no standardized or commonly accepted libraries and thus no common 
+development techniques.
+
+"places" are an integral part of Lisp and the driving mechanic behind its robust
+macro system, however ANSI leaves the definition of a "place" implementation
+dependent.
+
+Common Lisp tried and failed to be multi-paradigm and now the language is stuck
+with jump statements.
+
+

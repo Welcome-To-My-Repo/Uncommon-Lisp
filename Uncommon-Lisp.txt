@@ -4,12 +4,11 @@ June 2020
 
 Introduction -------------------------------------------------------------------
 
-Uncommon Lisp or "UcL" is an attempt to correct all the faults that have been 
-found and all the ills that have grown against ANSI Common Lisp since the 90's. 
-There are a lot, most of them are resolved. Uncommon Lisp is meant to be a 
-middle ground to Lisp, between the barren Scheme and the bloated Common Lisp. 
+Umcommon Lisp, or "UcL", is a Lisp syntax with a modern design. Many of the 
+features that made Lisp famous were designed in the past for a drastically
+different environment. UcL reimagines these famous qualities in a way that's 
+comdusive to modern programming.
 
-Uncommon Lisp is objectively the best lisp. 
 
 Uncommon Lisp has only a few design principals:
 1. Prioritize emergent syntax.
@@ -42,15 +41,6 @@ it implements a means of interacting with native system libraries, and it
 allows extension to implement access to any future manner of resource without
 breaking the syntax.
 
-How to Use This Document -------------------------------------------------------
-
-This document outlines the requirements for the Uncommon Lisp language. These 
-requirements can be described using UcL syntax, but they are not in this 
-document. Because UcL is not intended to be bootstrapped, the features of this
-language are described in Lambda Calculus. If they cannot be properly described
-in Lamba Calculus, they are described in plain english as a high level 
-algorithm.
-
 Language Overview --------------------------------------------------------------
 
 UcL is a multi-paradigm language with object orientation and a weak type system 
@@ -59,6 +49,7 @@ notation to represent operations. UcL can be compiled to a clean build, but like
 Lisp, it contains many reflective features for use in an interactive environment
 for interpreter or incremental compiler implementations.
 
+Unlike other Lisp variants, UcL is not described 
 
 Data ---------------------------------------------------------------------------
 
@@ -190,8 +181,9 @@ the recursive nesting behavior of S-expressions.
 
 In an S-expression with multiple Atoms, the first reference of each Atom 
 represents the location of a piece of data. The second reference represents the
-location of the next Atom in the expression. Below is an example of a nested
-pair of S-expressions.
+location of the next Atom in the expression. In this way, Atoms are used to
+construct the linked list structure that is so well knowm in Lisp. Below is an 
+example of a nested pair of S-expressions.
 
 root (data \)
             `(data  \)
