@@ -51,45 +51,50 @@ language are described in Lambda Calculus. If they cannot be properly described
 in Lamba Calculus, they are described in plain english as a high level 
 algorithm.
 
-Syntax -------------------------------------------------------------------------
+Language Overview --------------------------------------------------------------
 
-UcL syntax consists of the standard ASCII table. All visible characters, 
-including whitespace, have syntactical meaning.
+UcL is a multi-paradigm language with object orientation and a weak type system 
+with dynamic typing. UcL syntax uses traditional Lisp parenthesized prefix 
+notation to represent operations. UcL can be compiled to a clean build, but like
+Lisp, it contains many reflective features for use in an interactive environment
+for interpreter or incremental compiler implementations.
+
 
 Data ---------------------------------------------------------------------------
 
-In UcL, the fundamental data types are a number and a character. From these 
+In UcL, the fundamental data types are numbers and byte strings. From these 
 types, complex types can be designed using the Uncommon Object System.
 
 Numbers ------------------------------------------------------------------------
 
 Numbers can be any rational value. They can be described using decimal or 
-scientific notation. UcL supports bases 2, 10, 16 and 256.
+scientific notation. UcL additionally supports the numerical bases 2, 10, 16 
+and 256. Numbers are represented by the ASCII characters 0-9 and for hexadecimal
+values, A-F as well. A radix point is represented by the dot character, ".". A 
+single numerical place for bases 2, 10, and 16 is represented by a single 
+character. For base 256, a single place is represented by a pair of hexadecimal
+symbols and is end-bounded by a comma, "," unless a radix point is present. 
+
+Positive and negative values are denoted using a sign prefix which is either a
+plus or minus character, "+" "-" respectively. If a sign prefix is not present,
+the represented numerical value is assumed to be positive.
 
 Decimal Notation ---------------------------------------------------------------
 
-In UcL, decimal notation is represented by a number of numeric places followed 
-by an optional radix point, ".", followed by an optional number of numeric
-places. Each numeric place value is represented by numerals 0-9 for bases 2 and
-10 and 0-F for bases 16 and 256. An optional sign prefix, "+" or "-", can be 
-added in front of a decimal number.
+In UcL, decimal notation is represented by an optional sign prefix, followed by
+a number of numeric places followed by an optional radix point, ".", followed by
+an optional number of numeric places. Each numeric place value is represented by
+numerals 0-9 for bases 2 and 10 and 0-F for bases 16 and 256. 
 
 In base two, only ones and zeros are accepted.
-
 In a base 10 number, only 0-9 is accepted. 
-
 In a hexadecimal number, only 0-F is accepted. 
-
-In a base 256 number, only 0-F are accepted. Notation of each place value in 
-radix 256 is unique from the other three bases. Each place value requires two
-characters, 0-F and is separated by a comma unless already separated by a radix
-point.
+In a base 256 number, only 0-F are accepted. 
 
 Decimal notation without a sign prefix is assumed to represent a positive
 number.
 
 Below are some examples of decimal notation in UcL.
-
 -7
 4.5
 10010
@@ -98,12 +103,12 @@ Below are some examples of decimal notation in UcL.
 
 Scientific Notation ------------------------------------------------------------
 
-In UcL, scientific notation is represented by an optional sign, followed by a
-numerical place, followed by a radix point, followed by a number of numerical 
-places, followed by an exponent symbol, "^", followed by an optional sign 
-prefix, followed by a number of numerical places. The places after the exponent
-symbol represent a power of the base number of the numerical base of the first
-number.
+In UcL, scientific notation is represented by an optional sign prefix, followed 
+by a numerical place, followed by a radix point, followed by a number of 
+numerical places, followed by an exponent symbol, "^", followed by an optional 
+sign prefix, followed by a number of numerical places. The places after the 
+exponent symbol represent a power of the base number of the numerical base of 
+the first number.
 
 Below are some examples of Scientific Notation in UcL.
 
@@ -111,5 +116,56 @@ Below are some examples of Scientific Notation in UcL.
 -100101^11101
 FF^-A4
 74,FF^1A,04
+
+Determining Numerical Representations ------------------------------------------
+
+The type of numerical representation is determined in the following way. 
+If a number does not have an exponent symbol "^", then it uses decimal notation, 
+otherwise it uses scientific notation. 
+If a number contains a radix point, it represents a rational value. 
+If a number contains a comma, it represents a base 256 value.
+If a number contains alphabetical characters, it represents a hexadecimal value.
+If a number contains only numerical characters, it represents a decimal value.
+If a number contains only the "1" and "0" characters, it represents a binary
+value.
+If a number begins with a "+" or "_" character, it is signed positive or 
+negative. 
+If an exponent symbol is followed directly by a "+" or "-" character, the 
+exponential power is signed positive or negative.
+
+Byte Strings -------------------------------------------------------------------
+
+A byte string represents a contiguous series of single byte values. Byte strings
+can be used to represent ASCII character strings and raw data.
+
+Syntax -------------------------------------------------------------------------
+
+UcL syntax consists of all visible characters including whitespace in the 
+standard ASCII table. 
+
+UcL syntax is constructed using S-expressions. An S-expression is a binary tree
+structure used to represent nested list data. A single node in an S-expression
+is called an "Atom". An Atom consists of an ordered pair of references. A 
+reference can contain the location of data, or the location of the root Atom of
+another S-expression. Being able to reference another S-expression facilitates
+the recursive nesting behavior of S-expressions.
+
+In an S-expression with multiple Atoms, the first reference of each Atom 
+represents the location of a piece of data. The second reference represents the
+location of the next Atom in the expression. Below is an example of a nested
+pair of S-expressions.
+
+root (data \)
+            `(data  \)
+                     `(/  \)
+                      /    `(Empty)
+                     /
+                    root (data \)
+                                `(data \)
+                                        `(Empty)
+
+In UcL, an S-expression is represented using a closed pair of parentheses, "()".
+Individual Atoms in the expression are represented by syntax expressions
+separated by spaces.
 
 Objects ------------------------------------------------------------------------
