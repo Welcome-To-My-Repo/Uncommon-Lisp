@@ -135,8 +135,46 @@ exponential power is signed positive or negative.
 
 Byte Strings -------------------------------------------------------------------
 
-A byte string represents a contiguous series of single byte values. Byte strings
-can be used to represent ASCII character strings and raw data.
+A byte string consists of a contiguous series of single byte values. Byte
+strings can represent both raw data and ASCII, A byte string is represented by
+an ASCII character string, or hexadecimal values.
+
+A character string is represented by ASCII characters surrounded by double or 
+single quotes. Double or single quotations have the same meaning, but if a 
+string contains a single quote character, it must be surrounded by double quotes
+and single quotes if a double quote character is used in the string.
+
+A byte string is represented using two digit hexadecimal values surrounded by
+pipe symbols, "|". Because each byte is represented by a hexadecimal pair, a
+byte string must always contain an even number of characters.
+
+Control characters and invisible characters are represented by an underscore
+prefix, followed by a single character abbrrciation. Below is a list of 
+abbreviations for different ascii values. 
+
+t - horizontal tab
+l - line feed
+r - carriage return
+b - backspace
+d - delete
+
+c - End Of Text (^C)
+d - End Of Transmission (EOF) (^D)
+n - NULL (ASCII 0)
+
+Constructing Byte Strings ------------------------------------------------------
+
+Byte strings can be constructed using arbitrary combinations of the syntax
+above. Strings of bytes, characters, and control characters can be combined to
+represent a single contiguous byte string. Multiple strings are interpreted to
+represent one byte string if there are no spaces between delimiters (", ', |).
+Below are some examples of valid byte strings.
+
+"hello"
+|68656c6c6f| ...("hello" as a byte string)
+"null TERMINATED"_n
+|A17FE3|_t"abc"_t"def"
+'quotes"""""'_l"singlequotes''''''"
 
 Syntax -------------------------------------------------------------------------
 
