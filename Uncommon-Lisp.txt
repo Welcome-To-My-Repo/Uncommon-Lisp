@@ -189,7 +189,9 @@ Data Structures ----------------------------------------------------------------
 
 Along with the fundamental natural data types, there exists two fundamental 
 data structures. They are the array and the record. These two data structures
-represent the existence and positioning of data in a program. 
+represent the existence and positioning of data in a program. The third data
+structure is the List. It is a higher abstraction level than arrays and records
+as it can contain arrays and records.
 
 Array --------------------------------------------------------------------------
 
@@ -206,13 +208,15 @@ an identifier rather than a numerical index.
 
 Lists --------------------------------------------------------------------------
 
-The most important fundamental object in UcL is the list. Lists are how both 
-data and UcL itself (see Syntax) is represented. Lists exist as a series of 
-nodes with each node containing a piece of data and one or more references to 
-adjacent nodes in the list.
+The most important data structure in UcL is the list. Lists are how UcL itself 
+(see Syntax) is represented. Lists exist as a series of nodes with each node 
+containing a piece of data and one or more references to adjacent nodes in the 
+list.
 
-Lists are non contiguous structures, each node can have a different location 
-without compromising the structure of the list.
+Lists are better suited for dynamic structures where the ordering and length of
+the list might change. However, lists are less optimal for random access due to
+the fact that knowing the position of an element is dependent on knowing the
+position of adjacent nodes.
 
 
 Syntax -------------------------------------------------------------------------
