@@ -193,16 +193,7 @@ represent the existence and positioning of data in a program.
 
 Array --------------------------------------------------------------------------
 
-An array is an indexed collection of elements, each identified by an index. 
-Arrays can represent both linear organization or matricies. Arrays hold a series
-of elements of a single data type.
-
-Record -------------------------------------------------------------------------
-
-A record (also known as a structure or struct) is a collection of fields with a
-fixed number and sequence. Records are unique from arrays because they can 
-contain elements with different types and the elements inside are accessed using
-an identifier rather than a numerical index.
+An array is an indexed collection of elements, each identified by an index.
 
 Lists --------------------------------------------------------------------------
 
