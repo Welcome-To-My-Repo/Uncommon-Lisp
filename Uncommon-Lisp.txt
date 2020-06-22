@@ -83,9 +83,9 @@ environment.
 Data ---------------------------------------------------------------------------
 
 Natural information types are the underlying data types that support the UcL 
-object typing system. Natural information exists as numbers, byte strings, or 
-instructions. These three natural types are how information is introduced into
-the language environment by the programmer. They are static and immutable.
+object typing system. Natural information exists as numbers, bytes, variables, 
+or instructions. These three natural types are how information is introduced 
+into the language environment by the programmer. They are static and immutable.
 
 Information stored in a program will always be one of these three natural types.
 The object type system in UcL is derived from methods for access and handling of
@@ -165,6 +165,11 @@ negative.
 If an exponent symbol is followed directly by a "+" or "-" character, the 
 exponential power is signed positive or negative.
 
+Bytes --------------------------------------------------------------------------
+
+A byte is a single 8 bit value between 0 and 255. A single byte is represented
+by a two digit hexadecimal value with an open square brace prefix, "[".
+
 Byte Strings -------------------------------------------------------------------
 
 A byte string consists of a contiguous series of single byte values. Byte
@@ -226,60 +231,26 @@ syntax.
 Instructions can also be represented directly using a lambda. This method is
 described in the section, Lambdas.
 
-Generic Data -------------------------------------------------------------------
-
-The presence and absence of data can be specified in abstract using the 
-identifiers, "t", signifying that data exists at a location, or "nil", 
-signifying that data does not exist at a location. These abstractions can also
-be used for boolean operations or a union data structure where the type of the
-referenced data is ambiguous.
-
-Data Structures ----------------------------------------------------------------
-
-Along with the fundamental natural data types, there exists three fundamental 
-data structures. They are the array, the record, and the list. These three data 
-structures represent the existence and positioning of data in a program.
-
-Array --------------------------------------------------------------------------
-
-An array is an indexed collection of elements, each identified by an index. 
-Arrays can represent both linear organization or matricies. Arrays hold a series
-of elements of a single data type.
-
-Record -------------------------------------------------------------------------
-
-A record (also known as a structure or struct) is a collection of fields with a
-fixed number and sequence. Records are unique from arrays because they can 
-contain elements with different types and the elements inside are accessed using
-an identifier rather than a numerical index.
-
-Lists --------------------------------------------------------------------------
-
-The most important data structure in UcL is the list. Lists are how UcL itself 
-(see Syntax) is represented. Lists exist as a series of nodes with each node 
-containing a piece of data and one or more references to adjacent nodes in the 
-list.
-
-Lists are better suited for dynamic structures where the ordering and length of
-the list might change. However, lists are less optimal for random access due to
-the fact that knowing the position of an element is dependent on knowing the
-position of adjacent nodes.
-
 Variables ----------------------------------------------------------------------
 
-Variables contain a reference to the location of data. Data may be stored in a 
+Variables contain a reference to the location of data. Data may be stored in a
 program by associating it with a variable. In UcL, variables may contain the
-location of both Data and Data Structures.
+location of both Data and Data Structures. Variables that do not contain a
+reference hold the value of nil. 
+
+Variables are not required to contain a reference in order to be used in a 
+program. A Variable containing nil can be used as an identifier to an enumerated
+type. This allows Variables to be handled as constants.
 
 Variable identifiers consist of non-control, non-whitespace characters. The
 backquote character is reserved from identifiers because every character
 following the first backquote is blindly taken in as instruction data. Variable
-identifiers cannot contain sequences of characters that would otherwise 
+identifiers cannot contain sequences of characters that would otherwise
 represent data. Refer to the syntax examples in the previous sections, Numbers,
-Byte Strings, and Instructions for examples of how NOT to name a variable 
-identifier. 
+Byte Strings, and Instructions for examples of how NOT to name a variable
+identifier.
 
-Variable identifiers are case sensitive. 
+Variable identifiers are case sensitive.
 
 Below are some examples of acceptable variable identifiers.
 
@@ -297,13 +268,13 @@ binary
 a"ifh"
 afafffff
 
-To avoid ambiguity between identifiers and data, the rules in the previous 
+To avoid ambiguity between identifiers and data, the rules in the previous
 sections, Numbers and Byte Strings should NOT be followed. This is the most
-direct way to avoid undefined behavior in a program. General rules of thumb to 
-avoid ambiguity between variable identifiers and representations of data are 
+direct way to avoid undefined behavior in a program. General rules of thumb to
+avoid ambiguity between variable identifiers and representations of data are
 listed below.
 
-Identifiers shouldn't start with a pound sign, "#". If they do, make sure to 
+Identifiers shouldn't start with a pound sign, "#". If they do, make sure to
 include at least one character that is not 0-9, a-f, A-F, "^", or ".".
 
 Identifiers shouldn't ever begin with a single quote, a double quote, a pipe, or
@@ -316,13 +287,119 @@ at least two characters, or a character that is not a neumonic (see Byte
 Strings).
 
 If an identifier looks like it could be interpreted as data, it's usually best
-to use a different identifier to avoid inciting undefined behavior in the 
+to use a different identifier to avoid inciting undefined behavior in the
 program from identifiers being interpreted as data.
+
+Generic Data -------------------------------------------------------------------
+
+The presence and absence of data can be specified in abstract using the 
+identifiers, "t", signifying that data exists at a location, or "nil", 
+signifying that data does not exist at a location. These abstractions can also
+be used for boolean operations. All natural data types, because they 
+fundamentally exist, are all of type "t" as well as their individual types.
+
+Data Structures ----------------------------------------------------------------
+
+Along with natural data types, there exists three fundamental data structures.
+Where natural data types represent the existence and location of data, these 
+fundamental data structures represent the mapping of data to the environment. 
+
+The three fundamental data structures are the array, the record, and the tuple,
+or Atom.
+
+Arrays -------------------------------------------------------------------------
+
+An array contains a collection of data elements identified through a numerical 
+index. Each element in the array can be accessed by computing its index. Arrays
+in UcL can represent multi-dimensional matricies as well as linear arrays. 
+Arrays can contain elements from only one natural data type.
+
+In UcL, a byte string (see Byte String) is stored using an array.
+
+Records ------------------------------------------------------------------------
+
+A record (aka a structure or struct) is a collection of data fields with a fixed 
+number and sequence. Records are unique from arrays because they can contain
+elements with different natural types and the elements inside are accessed using
+an identifier rather than a numerical index.
+
+Tuples -------------------------------------------------------------------------
+
+The tuple is integral to the UcL langauge and Lisp in general. In UcL, tuples
+specifically represent an ordered pair of references. This specific type of
+tuple is called an Atom and is used heavily in Lisp syntax to represent 
+S-expressions (see Syntax). Like variables, the references in a tuple can 
+contain any location and are initially nil.
+
+Syntax in UcL and many other Lisp languages is represented by series of tuples,
+or atoms organized in a singly linked list structure.
+
+Core Operators -----------------------------------------------------------------
+
+Alongside natural data types, there exists a series of fundamental operations 
+that exist at an abstraction level below UcL's language domain. This is similar
+to how the mathematical operator "+" is used by Lambda Calculus when creating
+functions, but it itself is not a Lambda function.
+
+Each operator takes a number of parameters and returns one element of data.
+
+Core Operators behave exactly like lambda expressions and are invoked in the 
+same way as lambda expressions. Variables may share the same identifier as a
+Core Operator, but when that name is used at the beginning of an expression,
+invokation of the Core Operator takes precedence over the variable.
+
+Core operator names consist of between one to four lowercase, alphabetical 
+characters.
+
+Below is a list of the Core Operators for UcL. Operators are represented 
+as UcL syntax with the first element being the name of the operator. Parameters
+are surrounded by square braces and an unlimited repetition of parameters is 
+represented by an elipses, "...".
+
+(set [variable] [data] ...)
+"set" associates the location of data with the identifier variable. Variables do
+not have to be created with "var" first.
+
+(var [identifier] ...)
+"var" stores a variable in the environment with the name identifier.
+
+(l ([parameter list]) [byte string] ([body]))
+See Lambdas.
+
+(+ [data] ...)
+Returns the sum of the parameters added from left to right.
+
+(- [data] ...)
+Returns the difference of the parameters subtracted from left to right.
+
+(/ [data] ...)
+Returns the quotient of the parameters divided from left to right.
+
+(* [data] ...)
+Returns the product of the parameters multiplied from left to right.
+
+(% [data] ...)
+Returns the remainder of the parameters divided from left to right.
+
+(< [data] ...)
+Returns t if each data is less than the following from left to right.
+
+(> [data] ...)
+Returns t if each data is greater than the following from left to right.
+
+(= [data] ...)
+Returns t if each data is equal to the next from left to right.
+
+(if ([expression] ...)([body])([alternative]))
+If expression evaluates to t, body is then evaluated. Otherwise alternative is
+evaluated.
+
+
 
 Syntax -------------------------------------------------------------------------
 
 UcL syntax consists of all visible characters and whitespace in the standard 
-ASCII table. 
+ASCII table. UcL is always case sensitive.
 
 UcL syntax is constructed using S-expressions, also referred to as "lists". An 
 S-expression is a binary tree structure used to represent nested list data. A 
@@ -351,10 +428,10 @@ In UcL, an S-expression is represented using a closed pair of parentheses, "()".
 Individual Atoms in the expression are represented by syntax expressions
 separated by spaces. Nested parentheses do not need to be separate by spaces. 
 
-If the first atom of an expression is a variable identifier or a lambda, then
-the expression is interpreted as an invokation of the lambda or the function
-referenced by the variable and all following elements are
-used as parameters to the function.
+If the first atom of an expression is a variable referencing a function, or a 
+lambda, then the expression is interpreted as an invokation of the lambda or the
+function referenced by the variable and all following elements are used as 
+parameters to the function.
 
 Below are some examples of acceptable syntax.
 
@@ -371,6 +448,27 @@ parentheses. Below are some examples.
 ("string" nil) = "string"
 (identifier nil) = identifier
 
+Evaluation ---------------------------------------------------------------------
+
+Similarly to Lambda Calculus, UcL syntax is executed through the the process of
+evaluation. In Lambda Calculus, there exists three basic kinds of statements, a
+variable, a function definition, and a function application. UcL follows this
+system. Each S-expression is evaluated as a statement. It can be a variable, 
+function definition, or function application. This evaluation acts recursively,
+beginning evaluation at the bottom of the nested expression tree and evaluating
+upwards. Each expression is evaluated and one or more pieces of data. These
+pieces of data are then manipulated by any containing expressions or returned
+to the dynamic environment if the expression is the root of the tree structure.
+Below are some examples of evaluation.
+
+(1 nil) => 1
+"hello" => "hello"
+(+ 1 2 3) => 6
+(* 3 (+ 2 2)) => 12
+(/ 20 (/ 4 2)) => 2
+(f 6 "hello" t nil) => (t "multiple return")
+
+
 Lambdas ------------------------------------------------------------------------
 
 In the section, Instructions, the backquote character was used to enter 
@@ -381,12 +479,56 @@ lambda by itself represents an anonymous function. It can act on data where it
 is directly declared, but it is not stored in the environment. Lambdas can be
 stored as callable functions by associating them with a variable.
 
-A lambda consists of a single list that can optionally contain other
-nested lists. The first element of a lambda expression is always the 
-character "l". The element following the lambda declaration is a list of
-the parameters that the lambda might use. Any following lists represent 
-the operations the lambda performs.
+A lambda consists of a single list containing the lambda signifier "l" as the
+first element, a list of parameters as the second element and a list of 
+expressions as the third element. An optional element is a documentation byte
+string that can be added after the second element. Below is a diagram of the
+lambda syntax.
+
+(l ([parameter list]) [byte string] ([body]))
 
 Lambda Parameters --------------------------------------------------------------
 
-Lambdas can have any number of parameters.
+Lambdas can have any number of parameters. Every parameter specified is always
+required to be provided when the lambda is invoked. The order in which the 
+parameters are provided must always correspond to the order that the parameters
+were specified in the lambda declaration.
+
+Lambda parameters are always referenced because the parameter identifiers are 
+variables themselves. If literal data is provided, the parameter will contain a 
+reference to it. If a variable is given, the reference it contains is copied to 
+the corresponding parameter.
+
+There are several variables that are used to declare the treatment of the 
+parameters that follow them in a lambda declaration. When a special variable is
+used, all parameters following it are affected by it until another special 
+variable is found, or the parameter list ends. Below is a list of special 
+variables.
+
+? - The following parameters are not required when invoking the lambda.
+
+* - The following parameters exist as local nil variables within the
+    function body that can be assigned referenes during the function's run.
+
+& - The following parameters are declared as keyword-parameter tuples. Before
+    each parameter, a keyword variable is defined. When the lambda is invoked,
+    the parameters provided must be specified by providing a matching keyword 
+    before each parameter in the parameter list.
+
+The "?" and "&" variables can be used in combination to declare optional 
+keyword-parameter tuples.
+
+Lambda Documentation -----------------------------------------------------------
+
+When declaring a lambda, an optional byte string can be associated with the 
+lambda by including it after the parameter list. 
+
+Returning ----------------------------------------------------------------------
+
+A Lambda will return the last object resulting from evaluation of its body.
+
+Objects ------------------------------------------------------------------------
+
+UcL's type system is derived from objects which are an abstraction layer over
+natural data types that enforce patterns on how a program interacts with data.
+
