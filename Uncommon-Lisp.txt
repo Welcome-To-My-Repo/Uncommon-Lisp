@@ -4,10 +4,10 @@ June 2020
 
 Introduction -------------------------------------------------------------------
 
-This standard describes the qualities of a modern dynamic Lisp programming 
-language, "Uncommon Lisp", and the dynamic language environment used to 
+This standard describes the qualities of a modern dynamic Lisp programming
+language, "Uncommon Lisp", and the dynamic language environment used to
 create programs in this language. UcL and its environment are presented as a
-standard because there can exist many different approaches to achieving the 
+standard because there can exist many different approaches to achieving the
 qualities and behavior described in this document. Therefore, any manifestation
 of the UcL language and environment must conform to the descriptions in this
 document.
@@ -18,7 +18,7 @@ concepts.
 
 Using this Document ------------------------------------------------------------
 
-This document is comprised of sections denoted by the name of the section 
+This document is comprised of sections denoted by the name of the section
 followed by dashes to make them stand out. Each section will cover a specific
 aspect of the UcL language and environment. Sections may also include
 descriptions of core syntax and functions in UcL. Core syntax and functions are
@@ -34,11 +34,11 @@ An explanation of the function's purpose follows the closing parenthesis.
 
 Design Philosophy --------------------------------------------------------------
 
-Umcommon Lisp, or "UcL", is a Lisp language with a modern design. Many of the 
+Umcommon Lisp, or "UcL", is a Lisp language with a modern design. Many of the
 features that made Lisp famous were designed in the past for a drastically
-different environment. UcL reimagines these famous qualities in a way that's 
+different environment. UcL reimagines these famous qualities in a way that's
 comdusive to modern programming. Uncommon Lisp can be considered a consolidation
-of the philosophies presented by modern Lisp languages like Common Lisp, 
+of the philosophies presented by modern Lisp languages like Common Lisp,
 Clojure, and Scheme.
 
 Uncommon Lisp has only a few design principals:
@@ -50,22 +50,22 @@ Emergent syntax means that there should be many ways to implement an algorithm,
 using the same base set of operations. Take mathematical operations for example.
 There are five basic symbols that can be combined in any order to achieve a
 specific algorithm. It's easier to add three addends using two additions than to
-invent a new symbol specifically for adding three numbers. In that same sense, 
-Uncommon Lisp shall not implement an abstract operation as a component of the 
-language unless it cannot be represented with already existing syntax. This 
+invent a new symbol specifically for adding three numbers. In that same sense,
+Uncommon Lisp shall not implement an abstract operation as a component of the
+language unless it cannot be represented with already existing syntax. This
 avoids the redundancy that often occurs in Common Lisp syntax.
 
 Parallel to the first principal, Uncommon Lisp will be a small language. This is
 not the same sense of small as Scheme, where any usefulness to the language must
 be hand implemented by the users. This is why the term "compact" is used instead
-of "small". Scheme is small and it lacks so many basic features that it's 
+of "small". Scheme is small and it lacks so many basic features that it's
 impossible to use except when implementing a higer level, more feature-full
-language. Uncommon Lisp is full-featured without having an overwhelming amount 
+language. Uncommon Lisp is full-featured without having an overwhelming amount
 of syntax.
 
 The third principal is likely the most important. Lisp as a language is not
-future proof. It was designed when general purpose hardware wasn't a concept, 
-and died when the PC was popularized. Modern Lisp languages have no access to 
+future proof. It was designed when general purpose hardware wasn't a concept,
+and died when the PC was popularized. Modern Lisp languages have no access to
 the underlying system because they were left behind when C became the system
 language of choice. Uncommon Lisp implements two measures to avoid obsoletion,
 it implements a means of interacting with native system libraries, and it
@@ -75,48 +75,49 @@ breaking the syntax.
 Language Overview --------------------------------------------------------------
 
 UcL is a multi-paradigm dynamic language with object orientation and a weak type
-system with dynamic typing. UcL syntax uses traditional Lisp parenthesized 
+system with dynamic typing. UcL syntax uses traditional Lisp parenthesized
 prefix notation to represent operations. UcL can be statically compiled, but
-like Lisp, it contains many reflective features suited for use in a dynamic 
+like Lisp, it contains many reflective features suited for use in a dynamic
 environment.
 
-UcL is firstly a declarative language. Manipulation and creation of data is 
+UcL is firstly a declarative language. Manipulation and creation of data is
 facilitated by declaring nested invocations of functions in order to achieve a
-desired result. UcL is also capable of imperative programming. The easiest 
-example is UcL's ruobust object system. Object Oriented programming is 
+desired result. UcL is also capable of imperative programming. The easiest
+example is UcL's ruobust object system. Object Oriented programming is
 a well known example of imperative programming. UcL also contains utilities to
-manipulate the flow of data and execution within a program beyond serial 
+manipulate the flow of data and execution within a program beyond serial
 applications of functions.
 
 Data ---------------------------------------------------------------------------
 
-Natural information types are the underlying data types that support the UcL 
-object typing system. Natural information exists as numbers, bytes, variables, 
-or instructions. These three natural types are how information is introduced 
-into the language environment by the programmer. They are static and immutable.
+Natural information types are the underlying data types that support the UcL
+object typing system. Natural information exists as numbers, bytes, variables,
+gateways, or instructions. These three natural types are how information is
+introduced into the language environment by the programmer. They are static and
+immutable.
 
 Information stored in a program will always be one of these three natural types.
 The object type system in UcL is derived from methods for access and handling of
-these three static types. This avoids ambiguity that can interfere with other 
+these three static types. This avoids ambiguity that can interfere with other
 type systems. While UcL's object type system is weak, it can be said that the
-language is still strongly typed due to the three static natural types that 
+language is still strongly typed due to the three static natural types that
 control the internal representation of data in a program.
 
 Numbers ------------------------------------------------------------------------
 
-Numbers can be any rational value. They can be described using decimal or 
-scientific notation. UcL additionally supports the numerical bases 2, 10, 16 
+Numbers can be any rational value. They can be described using decimal or
+scientific notation. UcL additionally supports the numerical bases 2, 10, 16
 and 256. Numbers are represented by the ASCII characters 0-9 and for hexadecimal
-values, A-F as well. A radix point is represented by the dot character, ".". A 
-single numerical place for bases 2, 10, and 16 is represented by a single 
+values, A-F as well. A radix point is represented by the dot character, ".". A
+single numerical place for bases 2, 10, and 16 is represented by a single
 character. For base 256, a single place is represented by a pair of hexadecimal
-symbols and is end-bounded by a comma, "," unless a radix point is present. 
+symbols and is end-bounded by a comma, "," unless a radix point is present.
 
 Positive and negative values are denoted using a sign prefix which is either a
 plus or minus character, "+" "-" respectively. If a sign prefix is not present,
 the represented numerical value is assumed to be positive.
 
-To avoid ambiguity between data and identifiers, all numbers must be prefixed 
+To avoid ambiguity between data and identifiers, all numbers must be prefixed
 with the pound sign, "#".
 
 Decimal Notation ---------------------------------------------------------------
@@ -124,12 +125,12 @@ Decimal Notation ---------------------------------------------------------------
 In UcL, decimal notation is represented by an optional sign prefix, followed by
 a number of numeric places followed by an optional radix point, ".", followed by
 an optional number of numeric places. Each numeric place value is represented by
-numerals 0-9 for bases 2 and 10 and 0-F for bases 16 and 256. 
+numerals 0-9 for bases 2 and 10 and 0-F for bases 16 and 256.
 
 In base two, only ones and zeros are accepted.
-In a base 10 number, only 0-9 is accepted. 
-In a hexadecimal number, only 0-F is accepted. 
-In a base 256 number, only 0-F are accepted. 
+In a base 10 number, only 0-9 is accepted.
+In a hexadecimal number, only 0-F is accepted.
+In a base 256 number, only 0-F are accepted.
 
 Decimal notation without a sign prefix is assumed to represent a positive
 number.
@@ -143,11 +144,11 @@ Below are some examples of decimal notation in UcL.
 
 Scientific Notation ------------------------------------------------------------
 
-In UcL, scientific notation is represented by an optional sign prefix, followed 
-by a numerical place, followed by a radix point, followed by a number of 
-numerical places, followed by an exponent symbol, "^", followed by an optional 
-sign prefix, followed by a number of numerical places. The places after the 
-exponent symbol represent a power of the base number of the numerical base of 
+In UcL, scientific notation is represented by an optional sign prefix, followed
+by a numerical place, followed by a radix point, followed by a number of
+numerical places, followed by an exponent symbol, "^", followed by an optional
+sign prefix, followed by a number of numerical places. The places after the
+exponent symbol represent a power of the base number of the numerical base of
 the first number.
 
 Below are some examples of Scientific Notation in UcL.
@@ -159,18 +160,18 @@ Below are some examples of Scientific Notation in UcL.
 
 Determining Numerical Representations ------------------------------------------
 
-The type of numerical representation is determined in the following way. 
-If a number does not have an exponent symbol "^", then it uses decimal notation, 
-otherwise it uses scientific notation. 
-If a number contains a radix point, it represents a rational value. 
+The type of numerical representation is determined in the following way.
+If a number does not have an exponent symbol "^", then it uses decimal notation,
+otherwise it uses scientific notation.
+If a number contains a radix point, it represents a rational value.
 If a number contains a comma, it represents a base 256 value.
 If a number contains alphabetical characters, it represents a hexadecimal value.
 If a number contains only numerical characters, it represents a decimal value.
 If a number contains only the "1" and "0" characters, it represents a binary
 value.
-If a number begins with a "+" or "_" character, it is signed positive or 
-negative. 
-If an exponent symbol is followed directly by a "+" or "-" character, the 
+If a number begins with a "+" or "_" character, it is signed positive or
+negative.
+If an exponent symbol is followed directly by a "+" or "-" character, the
 exponential power is signed positive or negative.
 
 Bytes --------------------------------------------------------------------------
@@ -184,8 +185,8 @@ A byte string consists of a contiguous series of single byte values. Byte
 strings can represent both raw data and ASCII, A byte string is represented by
 an ASCII character string, or hexadecimal values.
 
-A character string is represented by ASCII characters surrounded by double or 
-single quotes. Double or single quotations have the same meaning, but if a 
+A character string is represented by ASCII characters surrounded by double or
+single quotes. Double or single quotations have the same meaning, but if a
 string contains a single quote character, it must be surrounded by double quotes
 and single quotes if a double quote character is used in the string.
 
@@ -194,8 +195,8 @@ pipe symbols, "|". Because each byte is represented by a hexadecimal pair, a
 byte string must always contain an even number of characters.
 
 Control characters and invisible characters are represented by an underscore
-prefix, followed by a single character neumonic. Below is a list of 
-abbreviations for different ascii values. 
+prefix, followed by a single character neumonic. Below is a list of
+abbreviations for different ascii values.
 
 a - bell
 b - backspace
@@ -230,10 +231,10 @@ Instructions -------------------------------------------------------------------
 
 Instructions represent operations to be performed by the hardware. Instructions
 are represented by UcL syntax. Normally, UcL syntax would be interpreted as a
-continuing nested component of a program. To use UcL syntax in abstract, the 
-syntax must be bounded by backquotes, "`". The purpose of this is to handle 
-an arbitrary block of syntax as a single unit of data. The validity of the 
-syntax contained in the backquotes is only checked when it is interpreted as 
+continuing nested component of a program. To use UcL syntax in abstract, the
+syntax must be bounded by backquotes, "`". The purpose of this is to handle
+an arbitrary block of syntax as a single unit of data. The validity of the
+syntax contained in the backquotes is only checked when it is interpreted as
 syntax.
 
 Instructions can also be represented directly using a lambda. This method is
@@ -244,9 +245,9 @@ Variables ----------------------------------------------------------------------
 Variables contain a reference to the location of data. Data may be stored in a
 program by associating it with a variable. In UcL, variables may contain the
 location of Data, Data Structures, and Objects. Variables that do not contain a
-reference hold the value of nil. 
+reference hold the value of nil.
 
-Variables are not required to contain a reference in order to be used in a 
+Variables are not required to contain a reference in order to be used in a
 program. A Variable containing nil can be used as an identifier to an enumerated
 type. This allows Variables to be used in abstract as arbitrary named constants.
 The both function parameter keywords and loop clauses use variables in this way
@@ -300,35 +301,53 @@ If an identifier looks like it could be interpreted as data, it's usually best
 to use a different identifier to avoid inciting undefined behavior in the
 program from identifiers being interpreted as data.
 
+Gateways -----------------------------------------------------------------------
+
+In UcL, a gateway represents an arbitrary location where data can be passed
+into. Gateways can represent a link between two programs or even two computers.
+A gateway is always referenced. It cannot be directly manipulated in the same
+manner as other natural data types.
+
+Gateways represent any point in a program where data exits or enters the
+program environment. This includes the standard streams, filesystem I/O, and
+networking sockets.
+
+Gateways are generated specifically with the "gtwy" operator which takes one to
+two keyword parameters. The first parameter specifies the domain of the gateway.
+Gateway domains for interprocess communication are "shm" for shared memory,
+"pip" for pipes, "pyt" for pseudoterminals, and "ipc" for interprocess network
+sockets. Domains for network sockets are "ip4" for Internet Protocol 4, "ip6"
+for Internet Protocol 6, and "pkt" for Packet level networking.
+
 Generic Data -------------------------------------------------------------------
 
-The presence and absence of data can be specified in abstract using the 
-identifiers, "t", signifying that data exists at a location, or "nil", 
+The presence and absence of data can be specified in abstract using the
+identifiers, "t", signifying that data exists at a location, or "nil",
 signifying that data does not exist at a location. These abstractions can also
-be used for boolean operations. All natural data types, because they 
+be used for boolean operations. All natural data types, because they
 fundamentally exist, are all of type "t" as well as their individual types.
 
 Data Structures ----------------------------------------------------------------
 
 Along with natural data types, there exists three fundamental data structures.
-Where natural data types represent the existence and location of data, these 
-fundamental data structures represent the mapping of data to the environment. 
+Where natural data types represent the existence and location of data, these
+fundamental data structures represent the mapping of data to the environment.
 
 The three fundamental data structures are the array, the record, and the tuple,
 or Atom.
 
 Arrays -------------------------------------------------------------------------
 
-An array contains a collection of data elements identified through a numerical 
+An array contains a collection of data elements identified through a numerical
 index. Each element in the array can be accessed by computing its index. Arrays
-in UcL can represent multi-dimensional matricies as well as linear arrays. 
+in UcL can represent multi-dimensional matricies as well as linear arrays.
 Arrays can contain elements from only one natural data type.
 
 In UcL, a byte string (see Byte String) is stored using an array.
 
 Records ------------------------------------------------------------------------
 
-A record (aka a structure or struct) is a collection of data fields with a fixed 
+A record (aka a structure or struct) is a collection of data fields with a fixed
 number and sequence. Records are unique from arrays because they can contain
 elements with different natural types and the elements inside are accessed using
 an identifier rather than a numerical index.
@@ -337,8 +356,8 @@ Tuples -------------------------------------------------------------------------
 
 The tuple is integral to the UcL langauge and Lisp in general. In UcL, tuples
 specifically represent an ordered pair of references. This specific type of
-tuple is called an Atom and is used heavily in Lisp syntax to represent 
-S-expressions (see Syntax). Like variables, the references in a tuple can 
+tuple is called an Atom and is used heavily in Lisp syntax to represent
+S-expressions (see Syntax). Like variables, the references in a tuple can
 contain any location and are initially nil.
 
 Syntax in UcL and many other Lisp languages is represented by series of tuples,
@@ -346,27 +365,29 @@ or atoms organized in a singly linked list structure.
 
 Core Operators -----------------------------------------------------------------
 
-Alongside natural data types, there exists a series of fundamental operations 
+Alongside natural data types, there exists a series of fundamental operations
 that exist at an abstraction level below UcL's language domain. This is similar
 to how the mathematical operator "+" is used by Lambda Calculus when creating
 functions, but it itself is not a Lambda function as that would introduce a
-conceptual collapse of infinite recursion. Core Operators are not affected by 
+conceptual collapse of infinite recursion. Core Operators are not affected by
 scope. They are ubiquitous throughout the environment.
 
 Each operator takes a number of parameters and returns one element of data.
 
-Core Operators behave exactly like lambda expressions and are invoked in the 
+Core Operators behave exactly like lambda expressions and are invoked in the
 same way as lambda expressions. Variables may share the same identifier as a
 Core Operator, but when that name is used at the beginning of an expression,
 invokation of the Core Operator takes precedence over the variable.
 
-Core operator names consist of between one to four lowercase, alphabetical 
+Core operator names consist of between one to four lowercase, alphabetical
 characters.
 
-Below is a list of the Core Operators for UcL. Operators are represented 
+Below is a list of the Core Operators for UcL. Operators are represented
 as UcL syntax with the first element being the name of the operator. Parameters
-are surrounded by square braces and an unlimited repetition of parameters is 
+are surrounded by square braces and an unlimited repetition of parameters is
 represented by an elipses, "...".
+
+Storage Operators --------------------------------------------------------------
 
 (set [variable] [data] ...)
 "set" associates the location of data with the identifier variable. Variables do
@@ -375,8 +396,13 @@ not have to be created with "var" first.
 (var [identifier] ...)
 "var" stores a variable in the environment with the name identifier.
 
+Data Generation Operators ------------------------------------------------------
+
 (l ([parameter list]) [byte string] ([body]))
 See Lambdas.
+
+(gtwy [shm, pip, pty, ip4, ip6, pkt] [rdo, rdw, tcp udp, seq, raw])
+Returns a Gateway (see Gateways).
 
 (+ [data] ...)
 Returns the sum of the parameters added from left to right.
@@ -413,23 +439,32 @@ to.
 (go [identifier])
 Moves the point of execution to the label with the corresponding identifier.
 
+(read [stream])
+Consumes input from a stream and interprets the input as data.
+
+(eval [data])
+Evaluates data as a representation of UcL syntax and returns a data result.
+
+(print [stream] [data])
+Prints a representation of data that can be interpreted by read as data.
+
 Syntax -------------------------------------------------------------------------
 
-UcL syntax consists of all visible characters and whitespace in the standard 
+UcL syntax consists of all visible characters and whitespace in the standard
 ASCII table. UcL is always case sensitive.
 
-UcL syntax is constructed using S-expressions, also referred to as "lists". An 
-S-expression is a binary tree structure used to represent nested list data. A 
-single node in an S-expression is called an "Atom". An Atom consists of an 
-ordered pair of references. A reference can contain the location of data, or 
-the location of the root Atom of another S-expression. Being able to reference 
-another S-expression facilitates the recursive nesting behavior of 
+UcL syntax is constructed using S-expressions, also referred to as "lists". An
+S-expression is a binary tree structure used to represent nested list data. A
+single node in an S-expression is called an "Atom". An Atom consists of an
+ordered pair of references. A reference can contain the location of data, or
+the location of the root Atom of another S-expression. Being able to reference
+another S-expression facilitates the recursive nesting behavior of
 S-expressions.
 
-In an S-expression with multiple Atoms, the first reference of each Atom 
+In an S-expression with multiple Atoms, the first reference of each Atom
 represents the location of a piece of data. The second reference represents the
 location of the next Atom in the expression. In this way, Atoms are used to
-construct the linked list structure that is so well knowm in Lisp. Below is an 
+construct the linked list structure that is so well knowm in Lisp. Below is an
 example of a nested pair of S-expressions.
 
 root (data \)
@@ -443,11 +478,11 @@ root (data \)
 
 In UcL, an S-expression is represented using a closed pair of parentheses, "()".
 Individual Atoms in the expression are represented by syntax expressions
-separated by spaces. Nested parentheses do not need to be separate by spaces. 
+separated by spaces. Nested parentheses do not need to be separate by spaces.
 
-If the first atom of an expression is a variable referencing a function, or a 
+If the first atom of an expression is a variable referencing a function, or a
 lambda, then the expression is interpreted as an invokation of the lambda or the
-function referenced by the variable and all following elements are used as 
+function referenced by the variable and all following elements are used as
 parameters to the function.
 
 Below are some examples of acceptable syntax.
@@ -472,7 +507,7 @@ Evaluation ---------------------------------------------------------------------
 Similarly to Lambda Calculus, UcL syntax is executed through the the process of
 evaluation. In Lambda Calculus, there exists three basic kinds of statements, a
 variable, a function definition, and a function application. UcL follows this
-system. Each S-expression is evaluated as a statement. It can be a variable, 
+system. Each S-expression is evaluated as a statement. It can be a variable,
 function definition, or function application. This evaluation acts recursively,
 beginning evaluation at the bottom of the nested expression tree and evaluating
 upwards. Each expression is evaluated and one or more pieces of data. These
@@ -490,8 +525,8 @@ Below are some examples of evaluation.
 
 Lambdas ------------------------------------------------------------------------
 
-In the section, Instructions, the backquote character was used to enter 
-instructions into the environment as an abstracted unit. Direct instructions 
+In the section, Instructions, the backquote character was used to enter
+instructions into the environment as an abstracted unit. Direct instructions
 that are used by the program are represented by the lambda. The name lambda
 comes from Lambda Calculus which is a system for expressing computation. A
 lambda by itself represents an anonymous function. It can act on data where it
@@ -499,7 +534,7 @@ is directly declared, but it is not stored in the environment. Lambdas can be
 stored as callable functions by associating them with a variable.
 
 A lambda consists of a single list containing the lambda signifier "l" as the
-first element, a list of parameters as the second element and a list of 
+first element, a list of parameters as the second element and a list of
 expressions as the third element. An optional element is a documentation byte
 string that can be added after the second element. Below is a diagram of the
 lambda syntax.
@@ -509,19 +544,19 @@ lambda syntax.
 Lambda Parameters --------------------------------------------------------------
 
 Lambdas can have any number of parameters. Every parameter specified is always
-required to be provided when the lambda is invoked. The order in which the 
+required to be provided when the lambda is invoked. The order in which the
 parameters are provided must always correspond to the order that the parameters
 were specified in the lambda declaration.
 
-Lambda parameters are always referenced because the parameter identifiers are 
-variables themselves. If literal data is provided, the parameter will contain a 
-reference to it. If a variable is given, the reference it contains is copied to 
+Lambda parameters are always referenced because the parameter identifiers are
+variables themselves. If literal data is provided, the parameter will contain a
+reference to it. If a variable is given, the reference it contains is copied to
 the corresponding parameter.
 
-There are several variables that are used to declare the treatment of the 
+There are several variables that are used to declare the treatment of the
 parameters that follow them in a lambda declaration. When a special variable is
-used, all parameters following it are affected by it until another special 
-variable is found, or the parameter list ends. Below is a list of special 
+used, all parameters following it are affected by it until another special
+variable is found, or the parameter list ends. Below is a list of special
 variables.
 
 ? - The following parameters are not required when invoking the lambda.
@@ -531,16 +566,16 @@ variables.
 
 & - The following parameters are declared as keyword-parameter tuples. Before
     each parameter, a keyword variable is defined. When the lambda is invoked,
-    the parameters provided must be specified by providing a matching keyword 
+    the parameters provided must be specified by providing a matching keyword
     before each parameter in the parameter list.
 
-The "?" and "&" variables can be used in combination to declare optional 
+The "?" and "&" variables can be used in combination to declare optional
 keyword-parameter tuples.
 
 Lambda Documentation -----------------------------------------------------------
 
-When declaring a lambda, an optional byte string can be associated with the 
-lambda by including it after the parameter list. 
+When declaring a lambda, an optional byte string can be associated with the
+lambda by including it after the parameter list.
 
 Returning ----------------------------------------------------------------------
 
@@ -550,4 +585,3 @@ Objects ------------------------------------------------------------------------
 
 UcL's type system is derived from objects which are an abstraction layer over
 natural data types that enforce patterns on how a program interacts with data.
-
