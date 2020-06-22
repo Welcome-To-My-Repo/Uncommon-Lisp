@@ -6,11 +6,31 @@ Introduction -------------------------------------------------------------------
 
 This standard describes the qualities of a modern dynamic Lisp programming 
 language, "Uncommon Lisp", and the dynamic language environment used to 
-create programs in this language.
+create programs in this language. UcL and its environment are presented as a
+standard because there can exist many different approaches to achieving the 
+qualities and behavior described in this document. Therefore, any manifestation
+of the UcL language and environment must conform to the descriptions in this
+document.
 
 UcL is described using plain english. Like all Lisp languages, UcL is capable of
 self-description, but for the sake of clarity, UcL is described in external
 concepts.
+
+Using this Document ------------------------------------------------------------
+
+This document is comprised of sections denoted by the name of the section 
+followed by dashes to make them stand out. Each section will cover a specific
+aspect of the UcL language and environment. Sections may also include
+descriptions of core syntax and functions in UcL. Core syntax and functions are
+required to be present in all implementations of UcL.
+
+Function Notation --------------------------------------------------------------
+
+UcL Functions are bounded by a closed set of parentheses.
+Each part of the function is separated by a space.
+The first element inside the parentheses is always the function identifier.
+The following elements are acceptable parameters to the function.
+An explanation of the function's purpose follows the closing parenthesis.
 
 Design Philosophy --------------------------------------------------------------
 
@@ -63,11 +83,16 @@ environment.
 Data ---------------------------------------------------------------------------
 
 Natural information types are the underlying data types that support the UcL 
-object typing system. Natural information exists as numbers, strings, or 
+object typing system. Natural information exists as numbers, byte strings, or 
 instructions. These three natural types are how information is introduced into
-the language environment by the programmer. These three types are how 
-information can be represented both internally in computers and externally
-in human communication.
+the language environment by the programmer. They are static and immutable.
+
+Information stored in a program will always be one of these three natural types.
+The object type system in UcL is derived from methods for access and handling of
+these three static types. This avoids ambiguity that can interfere with other 
+type systems. While UcL's object type system is weak, it can be said that the
+language is still strongly typed due to the three static natural types that 
+control the internal representation of data in a program.
 
 Numbers ------------------------------------------------------------------------
 
@@ -82,6 +107,9 @@ symbols and is end-bounded by a comma, "," unless a radix point is present.
 Positive and negative values are denoted using a sign prefix which is either a
 plus or minus character, "+" "-" respectively. If a sign prefix is not present,
 the represented numerical value is assumed to be positive.
+
+To avoid ambiguity between data and identifiers, all numbers must be prefixed 
+with the pound sign, "#".
 
 Decimal Notation ---------------------------------------------------------------
 
@@ -99,11 +127,11 @@ Decimal notation without a sign prefix is assumed to represent a positive
 number.
 
 Below are some examples of decimal notation in UcL.
--7
-4.5
-10010
-+4FC
--7F,5F.3A,1D
+#-7
+#4.5
+#10010
+#+4FC
+#-7F,5F.3A,1D
 
 Scientific Notation ------------------------------------------------------------
 
@@ -116,10 +144,10 @@ the first number.
 
 Below are some examples of Scientific Notation in UcL.
 
-+3.05^4
--100101^11101
-FF^-A4
-74,FF^1A,04
+#+3.05^4
+#-100101^11101
+#FF^-A4
+#74,FF^1A,04
 
 Determining Numerical Representations ------------------------------------------
 
@@ -153,18 +181,22 @@ pipe symbols, "|". Because each byte is represented by a hexadecimal pair, a
 byte string must always contain an even number of characters.
 
 Control characters and invisible characters are represented by an underscore
-prefix, followed by a single character abbrrciation. Below is a list of 
+prefix, followed by a single character neumonic. Below is a list of 
 abbreviations for different ascii values. 
 
-t - horizontal tab
-l - line feed
-r - carriage return
+a - bell
 b - backspace
-d - delete
+t - horizontal tab
+l - line feed (new line)
+v - vertical tab
+f - form feed
+r - carriage return
+x - delete
 
 c - End Of Text (^C)
 d - End Of Transmission (EOF) (^D)
 n - NULL (ASCII 0)
+e - escape (ESC)
 
 Constructing Byte Strings ------------------------------------------------------
 
@@ -179,19 +211,34 @@ Below are some examples of valid byte strings.
 "null TERMINATED"_n
 |A17FE3|_t"abc"_t"def"
 'quotes"""""'_l"singlequotes''''''"
+_e"[0m" ...(example of a ANSI escape code)
 
 Instructions -------------------------------------------------------------------
 
 Instructions represent operations to be performed by the hardware. Instructions
-are represented by UcL syntax.
+are represented by UcL syntax. Normally, UcL syntax would be interpreted as a
+continuing nested component of a program. To use UcL syntax in abstract, the 
+syntax must be bounded by backquotes, "`". The purpose of this is to handle 
+an arbitrary block of syntax as a single unit of data. The validity of the 
+syntax contained in the backquotes is only checked when it is interpreted as 
+syntax.
+
+Instructions can also be represented directly using a lambda. This method is
+described in the section, Lambdas.
+
+Generic Data -------------------------------------------------------------------
+
+The presence and absence of data can be specified in abstract using the 
+identifiers, "t", signifying that data exists at a location, or "nil", 
+signifying that data does not exist at a location. These abstractions can also
+be used for boolean operations or a union data structure where the type of the
+referenced data is ambiguous.
 
 Data Structures ----------------------------------------------------------------
 
-Along with the fundamental natural data types, there exists two fundamental 
-data structures. They are the array and the record. These two data structures
-represent the existence and positioning of data in a program. The third data
-structure is the List. It is a higher abstraction level than arrays and records
-as it can contain arrays and records.
+Along with the fundamental natural data types, there exists three fundamental 
+data structures. They are the array, the record, and the list. These three data 
+structures represent the existence and positioning of data in a program.
 
 Array --------------------------------------------------------------------------
 
@@ -218,18 +265,72 @@ the list might change. However, lists are less optimal for random access due to
 the fact that knowing the position of an element is dependent on knowing the
 position of adjacent nodes.
 
+Variables ----------------------------------------------------------------------
+
+Variables contain a reference to the location of data. Data may be stored in a 
+program by associating it with a variable. In UcL, variables may contain the
+location of both Data and Data Structures.
+
+Variable identifiers consist of non-control, non-whitespace characters. The
+backquote character is reserved from identifiers because every character
+following the first backquote is blindly taken in as instruction data. Variable
+identifiers cannot contain sequences of characters that would otherwise 
+represent data. Refer to the syntax examples in the previous sections, Numbers,
+Byte Strings, and Instructions for examples of how NOT to name a variable 
+identifier. 
+
+Variable identifiers are case sensitive. 
+
+Below are some examples of acceptable variable identifiers.
+
+6yzz%
+variable
+x
+y
+binary
+7.8FF=
++345$
+*E*
+\f\
+5$#G
+....
+a"ifh"
+afafffff
+
+To avoid ambiguity between identifiers and data, the rules in the previous 
+sections, Numbers and Byte Strings should NOT be followed. This is the most
+direct way to avoid undefined behavior in a program. General rules of thumb to 
+avoid ambiguity between variable identifiers and representations of data are 
+listed below.
+
+Identifiers shouldn't start with a pound sign, "#". If they do, make sure to 
+include at least one character that is not 0-9, a-f, A-F, "^", or ".".
+
+Identifiers shouldn't ever begin with a single quote, a double quote, a pipe, or
+an underscore. These represent the beginning of a byte string. If an identifier
+does begin with a byte string prefix, the identifier should never end with the
+corresponding ending suffix.
+
+If an identifier begins with an underscore character, it should be followed by
+at least two characters, or a character that is not a neumonic (see Byte
+Strings).
+
+If an identifier looks like it could be interpreted as data, it's usually best
+to use a different identifier to avoid inciting undefined behavior in the 
+program from identifiers being interpreted as data.
 
 Syntax -------------------------------------------------------------------------
 
-UcL syntax consists of all visible characters including whitespace in the 
-standard ASCII table. 
+UcL syntax consists of all visible characters and whitespace in the standard 
+ASCII table. 
 
-UcL syntax is constructed using S-expressions. An S-expression is a binary tree
-structure used to represent nested list data. A single node in an S-expression
-is called an "Atom". An Atom consists of an ordered pair of references. A 
-reference can contain the location of data, or the location of the root Atom of
-another S-expression. Being able to reference another S-expression facilitates
-the recursive nesting behavior of S-expressions.
+UcL syntax is constructed using S-expressions, also referred to as "lists". An 
+S-expression is a binary tree structure used to represent nested list data. A 
+single node in an S-expression is called an "Atom". An Atom consists of an 
+ordered pair of references. A reference can contain the location of data, or 
+the location of the root Atom of another S-expression. Being able to reference 
+another S-expression facilitates the recursive nesting behavior of 
+S-expressions.
 
 In an S-expression with multiple Atoms, the first reference of each Atom 
 represents the location of a piece of data. The second reference represents the
@@ -248,6 +349,44 @@ root (data \)
 
 In UcL, an S-expression is represented using a closed pair of parentheses, "()".
 Individual Atoms in the expression are represented by syntax expressions
-separated by spaces.
+separated by spaces. Nested parentheses do not need to be separate by spaces. 
 
-Objects ------------------------------------------------------------------------
+If the first atom of an expression is a variable identifier or a lambda, then
+the expression is interpreted as an invokation of the lambda or the function
+referenced by the variable and all following elements are
+used as parameters to the function.
+
+Below are some examples of acceptable syntax.
+
+(xvds 1.25)
+(a b c d)
+(f 5 9 "hello")
+(t (t (t (t nil))))
+(x b ("hello") (123))
+
+Atoms with a reference to a single location can be abbreviated without using
+parentheses. Below are some examples.
+
+(1 nil) = 1
+("string" nil) = "string"
+(identifier nil) = identifier
+
+Lambdas ------------------------------------------------------------------------
+
+In the section, Instructions, the backquote character was used to enter 
+instructions into the environment as an abstracted unit. Direct instructions 
+that are used by the program are represented by the lambda. The name lambda
+comes from Lambda Calculus which is a system for expressing computation. A
+lambda by itself represents an anonymous function. It can act on data where it
+is directly declared, but it is not stored in the environment. Lambdas can be
+stored as callable functions by associating them with a variable.
+
+A lambda consists of a single list that can optionally contain other
+nested lists. The first element of a lambda expression is always the 
+character "l". The element following the lambda declaration is a list of
+the parameters that the lambda might use. Any following lists represent 
+the operations the lambda performs.
+
+Lambda Parameters --------------------------------------------------------------
+
+Lambdas can have any number of parameters.
