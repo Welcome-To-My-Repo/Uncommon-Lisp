@@ -80,6 +80,14 @@ prefix notation to represent operations. UcL can be statically compiled, but
 like Lisp, it contains many reflective features suited for use in a dynamic 
 environment.
 
+UcL is firstly a declarative language. Manipulation and creation of data is 
+facilitated by declaring nested invocations of functions in order to achieve a
+desired result. UcL is also capable of imperative programming. The easiest 
+example is UcL's ruobust object system. Object Oriented programming is 
+a well known example of imperative programming. UcL also contains utilities to
+manipulate the flow of data and execution within a program beyond serial 
+applications of functions.
+
 Data ---------------------------------------------------------------------------
 
 Natural information types are the underlying data types that support the UcL 
@@ -235,12 +243,14 @@ Variables ----------------------------------------------------------------------
 
 Variables contain a reference to the location of data. Data may be stored in a
 program by associating it with a variable. In UcL, variables may contain the
-location of both Data and Data Structures. Variables that do not contain a
+location of Data, Data Structures, and Objects. Variables that do not contain a
 reference hold the value of nil. 
 
 Variables are not required to contain a reference in order to be used in a 
 program. A Variable containing nil can be used as an identifier to an enumerated
-type. This allows Variables to be handled as constants.
+type. This allows Variables to be used in abstract as arbitrary named constants.
+The both function parameter keywords and loop clauses use variables in this way
+(see Lambdas, Loop).
 
 Variable identifiers consist of non-control, non-whitespace characters. The
 backquote character is reserved from identifiers because every character
@@ -339,7 +349,9 @@ Core Operators -----------------------------------------------------------------
 Alongside natural data types, there exists a series of fundamental operations 
 that exist at an abstraction level below UcL's language domain. This is similar
 to how the mathematical operator "+" is used by Lambda Calculus when creating
-functions, but it itself is not a Lambda function.
+functions, but it itself is not a Lambda function as that would introduce a
+conceptual collapse of infinite recursion. Core Operators are not affected by 
+scope. They are ubiquitous throughout the environment.
 
 Each operator takes a number of parameters and returns one element of data.
 
@@ -394,7 +406,12 @@ Returns t if each data is equal to the next from left to right.
 If expression evaluates to t, body is then evaluated. Otherwise alternative is
 evaluated.
 
+(label [identifier])
+Defines a static location in a program that the point of execution can be moved
+to.
 
+(go [identifier])
+Moves the point of execution to the label with the corresponding identifier.
 
 Syntax -------------------------------------------------------------------------
 
@@ -447,6 +464,8 @@ parentheses. Below are some examples.
 (1 nil) = 1
 ("string" nil) = "string"
 (identifier nil) = identifier
+
+Syntax is constructed using macro characters (see Macros). Without macro
 
 Evaluation ---------------------------------------------------------------------
 
