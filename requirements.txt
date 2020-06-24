@@ -1,13 +1,15 @@
-language is for an incremental compiler.
+language name is Alchemist or Ether.
+language is for an incremental compiler dynamic environment.
 
 an image contains the environment.
 an environment can be exported, compiled, saved, or loaded as an image.
-a program exists as defined behavior in the environment.
+
+a program exists as a defined collection of operations in the environment.
 the environment can have multiple programs.
 an object contains a program.
 programs can be compiled, saved, or loaded using objects.
 
-environment holds programs created by language.
+language is used to create programs in the environment.
 language has reader, evaluator, compiler, printer.
 language has macros.
 language has macro characters.
@@ -18,6 +20,7 @@ set macro characters are:
 -function call
 -create object
 -assignment
+-macro call
 
 
 multiparadigm:
