@@ -237,8 +237,16 @@ an arbitrary block of syntax as a single unit of data. The validity of the
 syntax contained in the backquotes is only checked when it is interpreted as
 syntax.
 
-Instructions can also be represented directly using a lambda. This method is
-described in the section, Lambdas.
+Instructions are packaged using functions. Functions in UcL are created using
+the lambda (see Lambdas). A Lambda can be entered into the programming 
+environment for re-use by setting a variable to hold its reference. Functions
+can consist of internal syntax structure created by read, or native machine
+instructions produced by compiling the code. Instructions can be entered into
+the environment directly as machine instructions by assigning a byte string to
+a variable. When that variable is used as the root of an expression, the byte
+string is executed. This is a highly unstable method of creating functions and
+requires knowledge of both the native architecture and the internal structure
+of the UcL implementation.
 
 Variables ----------------------------------------------------------------------
 
@@ -391,16 +399,26 @@ as UcL syntax with the first element being the name of the operator. Parameters
 are surrounded by square braces and an unlimited repetition of parameters is
 represented by an elipses, "...".
 
-Storage Operators --------------------------------------------------------------
+Data Generation ----------------------------------------------------------------
 
-(set [variable] [data] ...)
-"set" associates the location of data with the identifier variable. Variables do
-not have to be created with "var" first.
+These operators generate data.
 
 (var [identifier] ...)
-"var" stores a variable in the environment with the name identifier.
+"variable" stores a variable in the environment located at identifier.
 
-Data Generation Operators ------------------------------------------------------
+(mtrx [number] ...)
+Returns an array data structure with each number specifying the length of its
+corresponding dimention. Behavior is not defined if number is not a whole value.
+
+(rcrd ([identifier] [data]{nil}) ...)
+Returns a record data structure with each parameter being an expression with the
+root being the identifier of an individual vield in the structure and 
+optionally the data referenced by the field. If data is not given, the reference
+is nil by default.
+
+(tple [data]{nil} [data]{nil})
+Returns a tuple data structure with optional data for each reference in the
+structure.
 
 (l ([parameter list]) [byte string] ([body]))
 See Lambdas.
@@ -408,7 +426,29 @@ See Lambdas.
 (gtwy [shm, pip, pty, ip4, ip6, pkt] [rdo, rdw, tcp udp, seq, raw])
 Returns a Gateway (see Gateways).
 
-Arithmetic Operators -----------------------------------------------------------
+Storage ------------------------------------------------------------------------
+
+These operators are used when working with variables.
+
+(set [variable] [data] ...)
+"set" associates the location of data with the identifier variable. Variables do
+not have to be created with "var" first.
+
+(unst [variable] ...)
+"un-set" sets the reference of variable to nil.
+
+Data Access --------------------------------------------------------------------
+
+These operators return a value taken from or derived from a component of a 
+piece of data.
+
+(at [data] [number])
+At returns the reference to data in data at index number.
+
+Data Manipulation --------------------------------------------------------------
+
+These functions can accept multiple natural types as parameters in a single 
+invokation. Every parameter is cast to the natural type of the first parameter.
 
 (+ [data] ...)
 Returns the sum of the parameters added from left to right.
