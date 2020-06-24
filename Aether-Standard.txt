@@ -1,0 +1,18 @@
+The Aether Standard -----------------------------------------------------
+June 2020
+(C)opyright Daniel (Robin) Smith
+
+Introduction -------------------------------------------------------------------
+
+The Aether Standard describes a modern, Lisp-based, dynamic programming
+language. Aether, is used for the creation and manipulation of
+a program image in a dynamic compilation environment.
+
+Language Overview --------------------------------------------------------------
+
+UcL is a multi-paradigm, dynamic language with object orientation and a strong
+static type system. It uses traditional Lisp parenthesized prefix notation to
+represent functions and statements.
+
+UcL specifically supports the functional, procedural, and object-oriented 
+paradigms.

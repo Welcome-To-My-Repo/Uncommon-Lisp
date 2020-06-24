@@ -2,44 +2,53 @@ The Uncommon Lisp Language Standard  -------------------------------------------
 June 2020
 (C)opyright Daniel (Robin) Smith
 
+Using This Document ------------------------------------------------------------
+
+This document is comprised of sections headed by the section title and a line of
+dashes. Each section will cover a specific aspect of the UcL language and 
+environment.
+
+Notation Conventions -----------------------------------------------------------
+
+Most of the functionality and syntax of UcL is described using plain language.
+Outliers include examples of acceptable syntax which use UcL syntax and function
+notation which uses parts of UcL syntax and additional abstract terms.
+
+A UcL function in this document is described by a series of terms surrounded by
+a closed pair of parentheses and separated by single spaces. The name of the
+function is always the first element in the series. Parameters to the function
+are described by the name of their data type surrounded by square brackets. 
+Each parameter may be followed by a default value given by its syntactic 
+representation in UcL and surrounded by braces. An elipses is used as the last
+element in the series to represent allowance for unlimited arguments by 
+repeating the defined sequence of parameters.
+
+UcL syntax, both external and internal are represented by a binary tree 
+structure representing nested lists called an S-expression (see Syntax). In this
+document an S-expression is referred to either as an expression or a list. An
+expression means a defined section of UcL syntax bounded by closed parentheses.
+A list can mean the same, but is a more generalized term that includes 
+S-expression structures that hold a linked list of data as well as UcL syntax.
+
 Introduction -------------------------------------------------------------------
 
-This standard describes the qualities of the modern, Lisp influenced, dynamic 
-programming language, "Uncommon Lisp", and the dynamic language environment used
-to create programs in this language. UcL and its environment are presented as a
-standard because there can exist many different approaches to achieving the
-qualities and behavior described in this document. Therefore, any manifestation
-of the UcL language and environment must conform to the descriptions in this
-document.
-
-UcL is described using plain english. Like all Lisp languages, UcL is capable of
-self-description, but for the sake of clarity, UcL is described in external
-concepts.
-
-Using this Document ------------------------------------------------------------
-
-This document is comprised of sections denoted by the name of the section
-followed by dashes to make them stand out. Each section will cover a specific
-aspect of the UcL language and environment. Sections may also include
-descriptions of core syntax and functions in UcL. Core syntax and functions are
-required to be present in all implementations of UcL.
-
-Function Notation --------------------------------------------------------------
-
-UcL Functions are bounded by a closed set of parentheses.
-Each part of the function is separated by a space.
-The first element inside the parentheses is always the function identifier.
-The following elements are acceptable parameters to the function.
-An explanation of the function's purpose follows the closing parenthesis.
+The Uncommon Lisp Language Standard describes a modern, Lisp influenced, 
+dynamic programming language, "Uncommon Lisp", and the dynamic programming 
+environment used to create programs in this language. Uncommon Lisp, or UcL, and
+its environment are presented as a standard because there can be multiple,
+unique approaches to implementing the UcL language and environment. Therefore,
+any implementation of UcL must conform to the descriptions in this document.
 
 Design Philosophy --------------------------------------------------------------
 
-Umcommon Lisp, or "UcL", is a Lisp language with a modern design. Many of the
-features that made Lisp famous were designed in the past for a drastically
-different environment. UcL reimagines these famous qualities in a way that's
-comdusive to modern programming. Uncommon Lisp can be considered a consolidation
-of the philosophies presented by modern Lisp languages like Common Lisp,
-Clojure, and Scheme.
+UcL is a Lisp language designed for modern programming. Most classic Lisp 
+languages were concieved between the 70's and 80's when software engineering
+was a wildly different field. UcL shares the same qualities that made Lisp such
+an advanced language for its time, but they are reimagined to support 
+contemporary computer programming approaches. 
+
+UcL is specifically a programming language for the incremental compilation of
+a program in native machine code. It includes many para
 
 Uncommon Lisp has only a few design principals:
 1. Prioritize emergent syntax.
@@ -324,12 +333,14 @@ Gateways are generated specifically with the "gtwy" operator which takes one to
 two keyword parameters. The first parameter specifies the domain of the gateway.
 Gateway domains for interprocess communication are "pip" for pipes and "ipc" for
 interprocess network sockets. Domains for network sockets are "ip4" for Internet
-Protocol 4, "ip6" for Internet Protocol 6, and "pkt" for packet level
-networking.
+Protocol 4, "ip6" for Internet Protocol 6, "pkt" for packet level networking,
+"fle" for a file stream.
 
 If the first keyword is "ipc", "ip4", or "ip6", the second keyword is required
 and can be one of "tcp" for Transmission Control Protocol, "udp" for User
-Datagram Protocol, or
+Datagram Protocol, "seq" for Unspecified Sequenced Packets, or "raw" for Raw 
+Packets. If the first keyword is "fle", the second keyword is required and can
+be one of "rdo" for read only, "rwo" for reading and writing. 
 
 Generic Data -------------------------------------------------------------------
 
