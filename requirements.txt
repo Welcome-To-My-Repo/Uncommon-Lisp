@@ -1,8 +1,33 @@
 language is for an incremental compiler.
 
-incremental compiler builds a program image.
+an image contains the environment.
+an environment can be exported, compiled, saved, or loaded as an image.
+a program exists as defined behavior in the environment.
+the environment can have multiple programs.
+an object contains a program.
+programs can be compiled, saved, or loaded using objects.
 
-language is not used to represent, but to comstruct program compomemts.
-language is not about abstracting assembly.
+environment holds programs created by language.
+language has reader, evaluator, compiler, printer.
+language has macros.
+language has macro characters.
+language is represented by binary tree.
+language has macro character classes that affect how syntax tree is constructed.
 
-compiler compiles to the achieved results. syntax can be crazy as possible
+set macro characters are:
+-function call
+-create object
+-assignment
+
+
+multiparadigm:
+object oriented
+procedural 
+functional
+
+each paradigm has its own syntax notation:
+procedures are blocks of statements.
+functions are nested expressions.
+objects are groups of methods acting on an object
+
+unassigned identifiers are enumerated types.
