@@ -1,0 +1,8 @@
+language is for an incremental compiler.
+
+incremental compiler builds a program image.
+
+language is not used to represent, but to comstruct program compomemts.
+language is not about abstracting assembly.
+
+compiler compiles to the achieved results. syntax can be crazy as possible
