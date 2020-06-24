@@ -314,10 +314,14 @@ networking sockets.
 
 Gateways are generated specifically with the "gtwy" operator which takes one to
 two keyword parameters. The first parameter specifies the domain of the gateway.
-Gateway domains for interprocess communication are "shm" for shared memory,
-"pip" for pipes, "pyt" for pseudoterminals, and "ipc" for interprocess network
-sockets. Domains for network sockets are "ip4" for Internet Protocol 4, "ip6"
-for Internet Protocol 6, and "pkt" for Packet level networking.
+Gateway domains for interprocess communication are "pip" for pipes and "ipc" for
+interprocess network sockets. Domains for network sockets are "ip4" for Internet
+Protocol 4, "ip6" for Internet Protocol 6, and "pkt" for packet level
+networking.
+
+If the first keyword is "ipc", "ip4", or "ip6", the second keyword is required
+and can be one of "tcp" for Transmission Control Protocol, "udp" for User
+Datagram Protocol, or
 
 Generic Data -------------------------------------------------------------------
 
