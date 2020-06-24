@@ -4,9 +4,9 @@ June 2020
 
 Introduction -------------------------------------------------------------------
 
-This standard describes the qualities of a modern dynamic Lisp programming
-language, "Uncommon Lisp", and the dynamic language environment used to
-create programs in this language. UcL and its environment are presented as a
+This standard describes the qualities of the modern, Lisp influenced, dynamic 
+programming language, "Uncommon Lisp", and the dynamic language environment used
+to create programs in this language. UcL and its environment are presented as a
 standard because there can exist many different approaches to achieving the
 qualities and behavior described in this document. Therefore, any manifestation
 of the UcL language and environment must conform to the descriptions in this
@@ -92,7 +92,7 @@ Data ---------------------------------------------------------------------------
 
 Natural information types are the underlying data types that support the UcL
 object typing system. Natural information exists as numbers, bytes, variables,
-gateways, or instructions. These three natural types are how information is
+gateways, or instructions. These five natural types are how information is
 introduced into the language environment by the programmer. They are static and
 immutable.
 
@@ -404,6 +404,8 @@ See Lambdas.
 (gtwy [shm, pip, pty, ip4, ip6, pkt] [rdo, rdw, tcp udp, seq, raw])
 Returns a Gateway (see Gateways).
 
+Arithmetic Operators -----------------------------------------------------------
+
 (+ [data] ...)
 Returns the sum of the parameters added from left to right.
 
@@ -428,6 +430,18 @@ Returns t if each data is greater than the following from left to right.
 (= [data] ...)
 Returns t if each data is equal to the next from left to right.
 
+Array Operators ----------------------------------------------------------------
+
+(mtrx [number] ...)
+Returns an array data structure with each number specifying the length of its
+corresponding dimension. Behavior is not defined if number is not a whole value.
+
+(at [number])
+Returns the data at the index specified by number. Behavior is not defined if 
+number is not a whole value.
+
+Control Flow Operators ---------------------------------------------------------
+
 (if ([expression] ...)([body])([alternative]))
 If expression evaluates to t, body is then evaluated. Otherwise alternative is
 evaluated.
@@ -436,16 +450,18 @@ evaluated.
 Defines a static location in a program that the point of execution can be moved
 to.
 
-(go [identifier])
+(jump [identifier])
 Moves the point of execution to the label with the corresponding identifier.
 
-(read [stream])
+Gateway Operators --------------------------------------------------------------
+
+(read [gateway])
 Consumes input from a stream and interprets the input as data.
 
 (eval [data])
 Evaluates data as a representation of UcL syntax and returns a data result.
 
-(print [stream] [data])
+(prnt [gateway] [data])
 Prints a representation of data that can be interpreted by read as data.
 
 Syntax -------------------------------------------------------------------------
