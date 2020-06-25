@@ -1,4 +1,4 @@
-language name is Alchemist or Ether.
+language name is Alchemist or Ether idk.
 language is for an incremental compiler dynamic environment.
 
 an image contains the environment.
@@ -20,18 +20,21 @@ control characters represent how reader represents objects.
 
 enviroment is an object
 
-internal data is either a ratio, number, byte, reference, object, or 
+internal data is either a number, byte, reference, system resource, object, or 
 instruction. generic data is either t or nil.
 
 enVironment is an object.
 object data
 -list of whitespace characters
 -list of ignored characters
--function start
--function end
--procedure start
--procedure end
--assignment operator
+-function start characters
+-function end characters
+-procedure start characters
+-procedure end characters
+-macro start characters
+-macro end characters
+-assignment operator characters
+-initializer characters
 
 
 syntax macro characters are:
@@ -56,21 +59,21 @@ unassigned identifiers are enumerated types.
 
 sample source code:
 ------------------------------------------------------
-helloworld=
+helloworld=!
 {
-stream=(gate stdout)
+!stream=(gate stdout)
 stream.buffer=(+ "hello" (+ "world" |0A|/hex newline character/))
 }
 helloworld
 --------------------------------------------------------
-addtwo=((list)
+!addtwo=((list)
 ({
 if list
 {
-iter=arglst.car
+!iter=arglst.car
 label:loop
 total=(+ total iter.car)
-if (= iter nil) (jump loop)
+if (= iter nil) eval=loop
 (produce total)
 )}
 })
@@ -78,3 +81,23 @@ newvar=(addtwo 10 20 30)
 -------------------------------------------------------
 /create a string/
 string=(bytes "helloworld")
+-------------------------------------------------------
+/create an object/
+!newObj is string
+newObj is array
+newObj is integer
+newObj is not integer
+newObj.length.require number newObj.contents = (bytes "")
+newObj.length=10
+------------------------------------------------------------------------------
+
+
+whitespace characters: " ", tab, lf/cr
+ignored characters: control characters, stuff you can't type
+function start characters: "("
+function end characters: "("
+procedure start characters: "{"
+procedure end characters: "}"
+macro start characters: "["
+macro end characters: "]"
+
