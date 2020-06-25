@@ -12,16 +12,35 @@ programs can be compiled, saved, or loaded using objects.
 language is used to create programs in the environment.
 language has reader, evaluator, compiler, printer.
 language has macros.
-language has macro characters.
+language has control characters.
 language is represented by binary tree.
-language has macro character classes that affect how syntax tree is constructed.
 
-set macro characters are:
+macros affect how evaluator and compiler interpret syntax tree.
+control characters represent how reader represents objects.
+
+enviroment is an object
+
+internal data is either a ratio, number, byte, reference, object, or 
+instruction. generic data is either t or nil.
+
+enVironment is an object.
+object data
+-list of whitespace characters
+-list of ignored characters
+-function start
+-function end
+-procedure start
+-procedure end
+-assignment operator
+
+
+syntax macro characters are:
 -function call
 -create object
 -assignment
 -macro call
 
+language deals with program structure and data objects.
 
 multiparadigm:
 object oriented
@@ -34,3 +53,28 @@ functions are nested expressions.
 objects are groups of methods acting on an object
 
 unassigned identifiers are enumerated types.
+
+sample source code:
+------------------------------------------------------
+helloworld=
+{
+stream=(gate stdout)
+stream.buffer=(+ "hello" (+ "world" |0A|/hex newline character/))
+}
+helloworld
+--------------------------------------------------------
+addtwo=((list)
+({
+if list
+{
+iter=arglst.car
+label:loop
+total=(+ total iter.car)
+if (= iter nil) (jump loop)
+(produce total)
+)}
+})
+newvar=(addtwo 10 20 30)
+-------------------------------------------------------
+/create a string/
+string=(bytes "helloworld")
