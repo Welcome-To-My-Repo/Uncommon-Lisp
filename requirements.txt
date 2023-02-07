@@ -18,12 +18,11 @@ language is represented by binary tree.
 macros affect how evaluator and compiler interpret syntax tree.
 control characters represent how reader represents objects.
 
-enviroment is an object
+environment is an object
 
-internal data is either a number, byte, reference, system resource, object, or 
+internal data is either a number, byte, reference, system resource, object, or
 instruction. generic data is either t or nil.
 
-enVironment is an object.
 object data
 -list of whitespace characters
 -list of ignored characters
@@ -47,7 +46,7 @@ language deals with program structure and data objects.
 
 multiparadigm:
 object oriented
-procedural 
+procedural
 functional
 
 each paradigm has its own syntax notation:
@@ -94,6 +93,7 @@ newObj.length=10
 
 whitespace characters: " ", tab, lf/cr
 ignored characters: control characters, stuff you can't type
+comment characters: "/"
 function start characters: "("
 function end characters: "("
 procedure start characters: "{"
@@ -102,5 +102,8 @@ macro start characters: "["
 macro end characters: "]"
 
 
+procedure has no arguments and no returns
+function has arguments and returns
+both have local variables
 
-
+object has data
